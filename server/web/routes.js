@@ -1,7 +1,7 @@
 'use strict';
 
+var homeRoute = require('./routes/homeRoutes');
+
 module.exports = function (app) {
-	app.get('/', function (req, res) {
-		res.send('Express is running');
-	});
+	homeRoute(app);
 };
