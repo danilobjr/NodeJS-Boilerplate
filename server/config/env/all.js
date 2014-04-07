@@ -1,5 +1,9 @@
 'use strict';
 
+// __dirname is not recognized in files in subdirectories
+var rootPath = __dirname + '../../../..';
+
 module.exports = {
-	port: 3000
+	rootPath: rootPath,
+	port: process.env.PORT || 3000
 };

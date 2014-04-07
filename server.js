@@ -12,16 +12,8 @@ var config = require('./server/config/config');
 
 var app = express();
 
-app.configure(function () {
-	// ejs as view engine
-	app.engine('ejs', engine);
-
-	// views location
-	app.set('views', __dirname + '/server/web/views');
-
-	// so you can use: res.render('index')
-	app.set('view engine', 'ejs');
-});
+// express config
+require('./server/config/express')(app, config);
 
 // routes' register
 require('./server/web/routes')(app);
