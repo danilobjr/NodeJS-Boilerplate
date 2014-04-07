@@ -3,6 +3,10 @@
 var http = require('http'),
 	express = require('express');
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+var config = require('./server/config/config');
+
 var app = express();
 
 app.get('/', function (req, res) {
@@ -10,6 +14,6 @@ app.get('/', function (req, res) {
 });
 
 var server = http.createServer(app);
-server.listen(3000, function () {
-	console.log('Express server is listening on port 3000');
-})
+server.listen(config.port, function () {
+	console.log('Express server is listening on port ' + config.port + ' on ' + config.env + ' mode...');
+});
