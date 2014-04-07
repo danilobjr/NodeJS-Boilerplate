@@ -1,0 +1,11 @@
+{
+  "name": "Nodejs-Boilerplate",
+  "version": "0.0.0",
+  "homepage": "https://github.com/danilojrr/NodeJS-Boilerplate",
+  "authors": [
+    "Danilo Jr. <danilobjr@gmail.com>"
+  ],
+  "description": "A boilerplate for Node.js web apps",
+  "license": "MIT",
+  "private": true
+}
