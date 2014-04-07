@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "express": "^3.5.1",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "ejs-locals": "^1.0.2"
   },
   "devDependencies": {},
   "scripts": {

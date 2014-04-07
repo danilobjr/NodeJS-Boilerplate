@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports.index = function (req, res) {
-	res.send('Express is running');
+	res.render('home/index');
 };
