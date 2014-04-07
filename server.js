@@ -3,15 +3,16 @@
 var http = require('http'),
 	express = require('express');
 
+// set 'development' as default environment 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+// set config options
 var config = require('./server/config/config');
 
 var app = express();
 
-app.get('/', function (req, res) {
-	res.send('Express is running');
-});
+// routes' register
+require('./server/web/routes')(app);
 
 var server = http.createServer(app);
 server.listen(config.port, function () {
