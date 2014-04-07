@@ -1,0 +1,26 @@
+{
+  "name": "Nodejs-Boilerplate",
+  "version": "0.0.0",
+  "description": "A boilerplate for Node.js web apps",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danilojrr/NodeJS-Boilerplate.git"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "boilerplate"
+  ],
+  "author": "Danilo Jr.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danilojrr/NodeJS-Boilerplate/issues"
+  },
+  "homepage": "https://github.com/danilojrr/NodeJS-Boilerplate"
+}
