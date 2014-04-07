@@ -1,6 +1,7 @@
 'use strict';
 
-var engine = require('ejs-locals');
+var express = require('express'),
+	engine = require('ejs-locals');
 
 module.exports = function (app, config) {
 
@@ -13,5 +14,8 @@ module.exports = function (app, config) {
 
 		// so you can use: res.render('index')
 		app.set('view engine', 'ejs');
+
+		// public files (assets: js, css)
+		app.use(express.static(config.rootPath + '/public'))
 	});
 };
