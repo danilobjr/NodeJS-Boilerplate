@@ -11,3 +11,8 @@ module.exports.signin = passport.authenticate('local', {
 	failureRedirect: '/login',
 	failureFlash: true
 });
+
+module.exports.logout = function (req, res) {
+	req.logout();
+	res.redirect('/login');
+};
