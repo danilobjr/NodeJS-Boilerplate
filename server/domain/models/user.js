@@ -11,15 +11,22 @@ var oAuthTypes = ['github', 'twitter', 'facebook', 'google'];
 */
 
 var UserSchema = new Schema({
-	name: String,
+	name: {
+		first: String,
+		last: String
+	},
 	email: String,
 	// grupo: {
 	// 	type: String,
 	// 	default: 'Usuário'
 	// },
 	hashPassword: String,
-	oAuth: String,
 	salt: String,
+	signinDate: {
+		type: Date,
+		default: new Date()
+	},
+	oAuth: String,
 	github: {},
 	twitter: {},
 	facebook: {},
@@ -29,6 +36,18 @@ var UserSchema = new Schema({
 /**
  * Virtuals
 */
+
+UserSchema
+	.virtual('fullName')
+	.set(function (fullName) {
+		var array = fullName.split(' ');
+		this.name.first = array.splice(0, 1).toString();
+		this.name.last = array.join(' ');
+		this._fullName = this.name.first + ' ' + this.name.last;
+	})
+	.get(function () {
+		return this.name.first + ' ' + this.name.last;
+	});
 
 UserSchema
 	.virtual('password')
@@ -47,7 +66,10 @@ UserSchema
 	.get(function () {
 		return {
 			name: this.name,
-			grupo: this.grupo,
+			fullName: this.name.first + ' ' + this.name.last,
+			email: this.email,
+			//grupo: this.grupo,
+			signinDate: this.signinDate,
 			oAuth: this.oAuth
 		};
 	});

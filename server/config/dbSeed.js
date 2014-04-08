@@ -5,24 +5,24 @@ var mongoose = require('mongoose'),
 
 var addUsers = function () {
 	var gates = new User({
-		name: 'Bill Gates',
 		email: 'gates@email.com'
 	});
 
+	gates.fullName = 'Bill Gates';
 	gates.password = 'billgates';
 
 	var jobs = new User({
-		name: 'Steve Jobs',
 		email: 'jobs@email.com'
 	});
 
+	jobs.fullName = 'Steve Jobs';
 	jobs.password = 'stevejobs';
 
 	var musk = new User({
-		name: 'Elon Musk',
 		email: 'musk@email.com'
 	});
 
+	musk.fullName = 'Elon Musk';
 	musk.password = 'elonmusk';
 
 	var users = [gates, jobs, musk];
