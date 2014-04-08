@@ -5,5 +5,12 @@ var rootPath = __dirname + '../../../..';
 
 module.exports = {
 	rootPath: rootPath,
-	port: process.env.PORT || 3000
+	port: process.env.PORT || 3000,
+	mongo: {
+		options: {
+			db: {
+				safe: true
+			}
+		}
+	}
 };
