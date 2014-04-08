@@ -13,6 +13,9 @@ var config = require('./server/config/config');
 // database settings
 require('./server/config/mongoose')(config);
 
+// put data to database
+require('./server/config/dbSeed');
+
 var app = express();
 
 // express config
