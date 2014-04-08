@@ -1957,10 +1957,13 @@ Component: timeline
 ------------------------
 */
 .alert {
+  /* CUSTOM COMMENT
   padding-left: 30px;
   margin-left: 15px;
+  */
   position: relative;
 }
+/* CUSTOM COMMENT
 .alert > .fa,
 .alert > .glyphicon {
   position: absolute;
@@ -1976,6 +1979,7 @@ Component: timeline
   background: inherit;
   border: inherit;
 }
+*/
 /*
     Component: Navs
 */
