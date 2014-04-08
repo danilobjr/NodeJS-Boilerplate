@@ -23,6 +23,9 @@
             <div class="header">Node.js Boilerplate</div>
             <form action="/login" method="post">
                 <div class="body bg-gray">
+                    <% if (typeof message != 'undefined' && message.length > 0) { %>
+                        <%= message %>
+                    <% } %>
                     <div class="form-group">
                         <input type="email" name="email" class="form-control" placeholder="Email" autofocus required/>
                     </div>

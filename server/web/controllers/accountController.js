@@ -3,7 +3,7 @@
 var passport = require('passport');
 
 module.exports.login = function (req, res) {
-	res.render('account/login');
+	res.render('account/login', { message: req.flash('login') });
 };
 
 module.exports.signin = passport.authenticate('local', { 

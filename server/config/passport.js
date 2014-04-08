@@ -31,11 +31,11 @@ passport.use(new LocalStrategy({
 	      	if (err) { return done(err); }
 
 	      	if (!user) {
-	        	return done(null, false, { message: 'Email and/or password incorrect. Are you already a member?' });
+	        	return done(null, false, req.flash('login', 'Email and/or password incorrect.'));
 	      	}
 
 	      	if (!user.authenticate(password)) {
-		        return done(null, false, { message: 'Email and/or password incorrect.' });
+		        return done(null, false, req.flash('login', 'Email and/or password incorrect.'));
 	      	}
 
 		    return done(null, user);
