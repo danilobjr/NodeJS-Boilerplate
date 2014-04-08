@@ -2,7 +2,8 @@
 
 var express = require('express'),
 	engine = require('ejs-locals'),
-	passport = require('passport');
+	passport = require('passport'),
+	flash = require('connect-flash');
 
 module.exports = function (app, config) {
 
@@ -24,6 +25,9 @@ module.exports = function (app, config) {
 		app.use(express.cookieParser());
 		// working with sessions
 		app.use(express.session({ secret: 'nodejsboilerplateveryveryverysecretphrase' }));
+
+		// send flash message to response
+		app.use(flash());
 
 		// passport
 		app.use(passport.initialize());
