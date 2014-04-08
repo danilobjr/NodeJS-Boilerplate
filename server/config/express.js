@@ -3,7 +3,8 @@
 var express = require('express'),
 	engine = require('ejs-locals'),
 	passport = require('passport'),
-	flash = require('connect-flash');
+	flash = require('connect-flash'),
+	middleware = require('./middleware');
 
 module.exports = function (app, config) {
 
@@ -32,5 +33,8 @@ module.exports = function (app, config) {
 		// passport
 		app.use(passport.initialize());
 		app.use(passport.session());
+
+		// put user in a res.locals variable (mimic session variable)
+		app.use(middleware.putUserInResLocal);
 	});
 };

@@ -1,5 +1,15 @@
 'use strict';
 
 module.exports = {
-	// put a function(req, res, next) here
+	putUserInResLocal: function (req, res, next) {
+		res.locals.session = undefined;
+
+		if (req.user) {
+			res.locals.session = {
+				user: req.user
+			}
+		}
+
+		next();
+	}
 };
