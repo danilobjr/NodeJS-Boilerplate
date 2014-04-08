@@ -2,6 +2,10 @@
 
 var mongoose = require('mongoose');
 
+var bootstrapModels = function () {
+	require('./../domain/models/user');
+};
+
 module.exports = function (config) {
 	mongoose.connect(config.mongo.uri, config.mongo.options);
 
@@ -16,4 +20,6 @@ module.exports = function (config) {
 	db.once('open', function () {
 		console.log('# Database open');
 	});
+
+	bootstrapModels();
 };
