@@ -16,6 +16,9 @@ require('./server/config/mongoose')(config);
 // put data to database
 require('./server/config/dbSeed');
 
+// passport settings
+require('./server/config/passport');
+
 var app = express();
 
 // express config

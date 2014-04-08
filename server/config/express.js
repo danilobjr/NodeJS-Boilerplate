@@ -1,21 +1,32 @@
 'use strict';
 
 var express = require('express'),
-	engine = require('ejs-locals');
+	engine = require('ejs-locals'),
+	passport = require('passport');
 
 module.exports = function (app, config) {
 
 	app.configure(function () {
+		// public files (assets: js, css)
+		app.use(express.static(config.rootPath + '/public'));
 		// ejs as view engine
 		app.engine('ejs', engine);
-
 		// views location
 		app.set('views', config.rootPath + '/server/web/views');
-
 		// so you can use: res.render('index')
 		app.set('view engine', 'ejs');
 
-		// public files (assets: js, css)
-		app.use(express.static(config.rootPath + '/public'))
+		// parses objects to and from request
+		app.use(express.json());
+		app.use(express.urlencoded());
+
+		// parses the Cookie header field and populates req.cookies with an object keyed by the cookie names
+		app.use(express.cookieParser());
+		// working with sessions
+		app.use(express.session({ secret: 'nodejsboilerplateveryveryverysecretphrase' }));
+
+		// passport
+		app.use(passport.initialize());
+		app.use(passport.session());
 	});
 };
