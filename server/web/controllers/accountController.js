@@ -2,11 +2,11 @@
 
 var passport = require('passport');
 
-module.exports.login = function (req, res) {
+module.exports.loginPage = function (req, res) {
 	res.render('account/login', { message: req.flash('login') });
 };
 
-module.exports.signin = passport.authenticate('local', { 
+module.exports.login = passport.authenticate('local', { 
 	successRedirect: '/',
 	failureRedirect: '/login',
 	failureFlash: true
