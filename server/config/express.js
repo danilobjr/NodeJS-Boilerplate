@@ -36,5 +36,10 @@ module.exports = function (app, config) {
 
 		// put user in a res.locals variable (mimic session variable)
 		app.use(middleware.putUserInResLocal);
+
+		app.use(app.router);
+
+		// 404 Not Found handler
+		app.use(middleware.notFoundHandler);
 	});
 };

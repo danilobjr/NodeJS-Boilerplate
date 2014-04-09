@@ -18,5 +18,18 @@ module.exports = {
 		}
 
 		next();
-	}
+	},
+	notFoundHandler: function (req, res, next) {
+		if (req.isAuthenticated()) {
+			res.render('error', {
+				error: {
+					statusCode: 404,
+					message: 'Page Not Found'
+				}
+			});
+		} else {
+			res.redirect('/login');
+		}
+	},
+
 };
