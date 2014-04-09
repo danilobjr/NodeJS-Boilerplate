@@ -24,7 +24,8 @@ module.exports = {
 			res.render('error', {
 				error: {
 					statusCode: 404,
-					message: 'Page Not Found'
+					message: 'Page Not Found',
+					description: 'We could not find the page you were looking for'
 				}
 			});
 		} else {
@@ -36,7 +37,7 @@ module.exports = {
 			error: {
 				statusCode: 500,
 				message: 'Internal Server Error',
-				description: 'Something very bad is happened',
+				description: 'We will work on fixing that right away',
 				stackTrace: error.stack
 			}
 		});
