@@ -20,13 +20,13 @@
     <body class="bg-black">
 
         <div class="form-box" id="login-box">
-            <div class="header">Node.js Boilerplate</div>
+            <div class="header">Sign In</div>
             <form action="/login" method="post">
                 <div class="body bg-gray">
                     <% if (typeof message != 'undefined' && message.length > 0) { %>
                         <div class="alert alert-warning alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <b>Ops!</b>
+                            <b>Oops!</b>
                             <%= message %>
                         </div>
                     <% } %>
@@ -45,7 +45,7 @@
                     
                     <!-- <p><a id='forgotPassword' href="#">I forgot my password</a></p> -->
                     
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                    <a href="/signup" class="text-center">Register a new membership</a>
                 </div>
             </form>
 
