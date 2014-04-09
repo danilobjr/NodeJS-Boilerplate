@@ -31,5 +31,14 @@ module.exports = {
 			res.redirect('/login');
 		}
 	},
-
+	internalServerErrorHandler: function (error, req, res, next) {
+		res.render('error', {
+			error: {
+				statusCode: 500,
+				message: 'Internal Server Error',
+				description: 'Something very bad is happened',
+				stackTrace: error.stack
+			}
+		});
+	}
 };

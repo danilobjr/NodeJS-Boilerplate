@@ -41,5 +41,8 @@ module.exports = function (app, config) {
 
 		// 404 Not Found handler
 		app.use(middleware.notFoundHandler);
+
+		// 500 Internal Server Error handler
+		app.use(middleware.internalServerErrorHandler);
 	});
 };
