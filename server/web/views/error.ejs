@@ -441,9 +441,19 @@
                     <div class="error-page">
                         <h2 class="headline text-info"> <%= error.statusCode %></h2>
                         <div class="error-content">
-                            <h3><i class="fa fa-warning text-yellow"></i> Oops! <%= error.message %>.</h3>
-                            <p class="hidden-lg text-center">Sorry, we could not find the page you were looking for.</p>
-                            <p class="visible-lg">Sorry, we could not find the page you were looking for.</p>
+                            <h3><i class="fa fa-warning text-yellow"></i> Oops! <%= error.message %></h3>
+                            <p class="hidden-lg text-center">
+                                <%= error.description %> 
+                                <% if (error.statusCode == 500) { %>
+                                    <i class="fa fa-info-circle text-muted" data-toggle="tooltip" data-placement="top" title="StackTrace on web console (F12)"></i>
+                                <% } %>
+                            </p>
+                            <p class="visible-lg">
+                                <%= error.description %> 
+                                <% if (error.statusCode == 500) { %>
+                                    <i class="fa fa-info-circle text-muted" data-toggle="tooltip" data-placement="top" title="StackTrace on web console (F12)"></i>
+                                <% } %>
+                            </p>
                             <!-- <form class="search-form">
                                 <div class="input-group">
                                     <input type="text" name="search" class="form-control" placeholder="Search">
@@ -458,6 +468,7 @@
                             <div class="visible-lg">
                                 <a href="#" class="btn btn-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Go Back</a>
                             </div>
+                            <span class="hidden stackTrace"><%= (error.stackTrace) ? error.stackTrace : '' %></span>
                         </div><!-- /.error-content -->
                     </div><!-- /.error-page -->
 
@@ -472,5 +483,15 @@
 
         <script src="/js/AdminLTE.js"></script>
         <script src="/js/AdminLTE_Custom.js"></script>
+
+        <script>
+            $(function () {
+                var stackTraceElement = $('.stackTrace');
+
+                if (stackTraceElement.text()) {
+                    console.error(stackTraceElement.text());
+                }
+            });
+        </script>
     </body>
 </html>
