@@ -6,4 +6,6 @@ module.exports = function (app) {
 	app.get('/login', accountController.loginPage);
 	app.post('/login', accountController.login);
 	app.get('/logout', accountController.logout);
+	app.get('/signup', accountController.signupPage);
+	app.post('/signup', accountController.signup);
 };
