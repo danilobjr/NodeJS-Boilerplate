@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	crypto = require('crypto');
+	crypto = require('crypto'),
+	moment = require('moment');
 
 var oAuthTypes = ['github', 'twitter', 'facebook', 'google'];
 
@@ -62,14 +63,19 @@ UserSchema
 
 // basic info to identify a authenticated user 
 UserSchema
-	.virtual('userInfo')
+	.virtual('info')
 	.get(function () {
 		return {
 			name: this.name,
 			fullName: this.name.first + ' ' + this.name.last,
 			email: this.email,
 			//grupo: this.grupo,
-			signinDate: this.signinDate,
+			signinDate: {
+				day: moment(this.signinDate).format('DD'),
+				monthNumber: moment(this.signinDate).format('MM'),
+				monthName: moment(this.signinDate).format('MMM'),
+				year: moment(this.signinDate).format('YYYY')
+			},
 			oAuth: this.oAuth
 		};
 	});

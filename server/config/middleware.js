@@ -13,7 +13,7 @@ module.exports = {
 
 		if (req.user) {
 			res.locals.session = {
-				user: req.user
+				user: req.user.info
 			}
 		}
 
