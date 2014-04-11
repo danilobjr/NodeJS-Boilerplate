@@ -63,38 +63,6 @@
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/bower_components/jquery-validate/dist/jquery.validate.min.js"></script>
 
-        <script>
-            $(function () {
-            	$('form').validate({
-					rules: {
-					    email: {
-					        required: true
-					    },
-					    password: {
-					        required: true
-					    }
-					},
-					messages: {
-						email: 'Type your email',
-						password: 'Type your password'
-					},
-					highlight: function(element) {
-					    $(element).closest('.form-group').addClass('has-error');
-					},
-					unhighlight: function(element) {
-					    $(element).closest('.form-group').removeClass('has-error');
-					},
-					errorElement: 'span',
-					errorClass: 'help-block',
-					errorPlacement: function(error, element) {
-					    if(element.parent('.input-group').length) {
-					        error.insertAfter(element.parent());
-					    } else {
-					        error.insertAfter(element);
-					    }
-					}
-            	});
-            });
-        </script>
+        <script src="/js/app/controllers/account/login.js"></script>
     </body>
 </html>
