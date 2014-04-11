@@ -25,7 +25,7 @@ var UserSchema = new Schema({
 	salt: String,
 	signinDate: {
 		type: Date,
-		default: new Date()
+		default: Date.now
 	},
 	oAuth: String,
 	github: {},
