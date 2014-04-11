@@ -3,7 +3,7 @@
 var accountRoute = require('./routes/accountRoutes'),
 	homeRoute = require('./routes/homeRoutes');
 
-module.exports = function (app) {
-	accountRoute(app);
+module.exports = function (app, di) {
+	accountRoute(app, di);
 	homeRoute(app);
 };

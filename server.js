@@ -2,7 +2,7 @@
 
 var http = require('http'),
 	express = require('express'),
-	engine = require('ejs-locals');
+	omni = require('omni-di');
 
 // set 'development' as default environment 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -11,13 +11,18 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var config = require('./server/config/config');
 
 // database settings
-require('./server/config/mongoose')(config);
+var mongoose = require('./server/config/mongoose').setup(config);
+
+// dependency injector setting
+omni.addInjectToFunctionPrototype(); // Attaches a convenience helper .inject(di) to Function.prototype
+var di = omni();
+require('./server/config/dependencyInjector').createDependencies(mongoose, di);
 
 // put data to database
-require('./server/config/dbSeed');
+require('./server/config/dbSeed').insertModels.inject(di);
 
 // passport settings
-require('./server/config/passport');
+require('./server/config/passport').setup.inject(di);
 
 var app = express();
 
@@ -25,7 +30,7 @@ var app = express();
 require('./server/config/express')(app, config);
 
 // routes' register
-require('./server/web/routes')(app);
+require('./server/web/routes')(app, di);
 
 var server = http.createServer(app);
 server.listen(config.port, function () {

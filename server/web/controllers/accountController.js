@@ -1,8 +1,6 @@
 'use strict';
 
-var passport = require('passport'),
-	mongoose = require('mongoose'),
-	User = mongoose.model('User');
+var passport = require('passport');
 
 module.exports.loginPage = function (req, res) {
 	res.render('account/login', { message: req.flash('login') });
@@ -28,32 +26,31 @@ module.exports.signupPage = function (req, res) {
 	});
 };
 
-module.exports.signup = function (req, res, next) {
-	console.log(req.body);
+module.exports.signup = function (User) {
+	return function (req, res, next) {
+		var newUser = new User({
+			email: req.body.email
+		});
 
-	var newUser = new User({
-		email: req.body.email
-	});
+		newUser.fullName = req.body.fullName;
+		newUser.password = req.body.password;
 
-	newUser.fullName = req.body.fullName;
-	newUser.password = req.body.password;
+		newUser.save(function (error, user, numberAffected) {
+			if (error) { return next(error); }
 
-	newUser.save(function (error, user, numberAffected) {
-		if (error) { return next(error); }
+			var success = false,
+				message = '';
 
-		var success = false,
-			message = '';
+			if (numberAffected) {
+				success = true;
+				message = 'Go to sign in page';
+			} else {
+				message = 'User not saved';
+			}
 
-		if (numberAffected) {
-			success = true;
-			message = 'Go to sign in page';
-		} else {
-			message = 'User not saved';
-		}
-
-		req.flash('signup-success', success);
-		req.flash('signup-message', message);
-		res.redirect('/signup');
-	});
-
+			req.flash('signup-success', success);
+			req.flash('signup-message', message);
+			res.redirect('/signup');
+		});
+	};
 };

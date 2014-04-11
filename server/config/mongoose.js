@@ -2,11 +2,7 @@
 
 var mongoose = require('mongoose');
 
-var bootstrapModels = function () {
-	require('./../domain/models/user');
-};
-
-module.exports = function (config) {
+module.exports.setup = function (config) {
 	mongoose.connect(config.mongo.uri, config.mongo.options);
 
 	var db = mongoose.connection;
@@ -21,5 +17,5 @@ module.exports = function (config) {
 		console.log('# Database open');
 	});
 
-	bootstrapModels();
+	return mongoose;
 };
