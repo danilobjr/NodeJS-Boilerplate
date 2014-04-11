@@ -26,12 +26,13 @@ module.exports.signupPage = function (req, res) {
 	});
 };
 
-module.exports.signup = function (User) {
+module.exports.signup = function (User, gravatar) {
 	return function (req, res, next) {
 		var newUser = new User({
 			email: req.body.email
 		});
 
+		newUser.avatar = gravatar.url(newUser.email, { d: 'mm' });
 		newUser.fullName = req.body.fullName;
 		newUser.password = req.body.password;
 

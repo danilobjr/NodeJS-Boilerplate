@@ -29,6 +29,7 @@ module.exports.createSchema = function () {
 			type: Date,
 			default: Date.now
 		},
+		avatar: String,
 		oAuth: String,
 		github: {},
 		twitter: {},
@@ -78,6 +79,7 @@ module.exports.createSchema = function () {
 					monthName: moment(this.signinDate).format('MMM'),
 					year: moment(this.signinDate).format('YYYY')
 				},
+				avatar: this.avatar,
 				oAuth: this.oAuth
 			};
 		});

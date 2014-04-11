@@ -12,7 +12,8 @@
     "passport-local": "^1.0.0",
     "connect-flash": "^0.1.1",
     "moment": "^2.5.1",
-    "omni-di": "^1.0.0"
+    "omni-di": "^1.0.0",
+    "gravatar": "^1.0.6"
   },
   "devDependencies": {},
   "scripts": {
