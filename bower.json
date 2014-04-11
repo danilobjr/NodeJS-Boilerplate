@@ -12,6 +12,7 @@
     "jquery": "~2.1.0",
     "bootstrap": "~3.1.1",
     "components-font-awesome": "~4.0.3",
-    "ionicons": "~1.4.1"
+    "ionicons": "~1.4.1",
+    "jquery-validate": "~1.12.0"
   }
 }
