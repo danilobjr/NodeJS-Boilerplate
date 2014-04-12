@@ -23,6 +23,14 @@ module.exports.createSchema = function () {
 		// 	type: String,
 		// 	default: 'Usuário'
 		// },
+		occupation: {
+			description: String,
+			company: {
+				name: String,
+				website: String
+			}
+		},
+		country: String,
 		hashPassword: String,
 		salt: String,
 		signinDate: {
@@ -74,6 +82,8 @@ module.exports.createSchema = function () {
 				fullName: this.name.first + ' ' + this.name.last,
 				email: this.email,
 				//grupo: this.grupo,
+				occupation: this.occupation,
+				country: this.country,
 				signinDate: {
 					day: moment(this.signinDate).format('DD'),
 					monthNumber: moment(this.signinDate).format('MM'),

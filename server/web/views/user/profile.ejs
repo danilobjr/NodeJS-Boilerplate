@@ -12,8 +12,8 @@
 		<div class="col-sm-9">
 			<div class="profile-header">				
 				<h1><%= session.user.fullName %></h1>
-				<p class='text-muted'><i class="fa fa-map-marker fa-fw"></i>&nbsp;&nbsp;&nbsp;TODO: put local on User schema</p>
-				<p class='text-muted'><i class="fa fa-briefcase fa-fw"></i>&nbsp;&nbsp;&nbsp;TODO: put function/company on User schema <a href="#">Company</a></p>
+				<p class='text-muted'><i class="fa fa-map-marker fa-fw"></i>&nbsp;&nbsp;&nbsp;<%= session.user.country %></p>
+				<p class='text-muted'><i class="fa fa-briefcase fa-fw"></i>&nbsp;&nbsp;&nbsp;<%= session.user.occupation.description %> at <a href="<%= session.user.occupation.company.website %>" target="_blank"><%= session.user.occupation.company.name %></a></p>
 				<!-- <div class="mb20"></div> -->
 				<!-- <a href="#" class="btn btn-primary"><i class="fa fa-camera"></i>&nbsp;&nbsp;&nbsp;Change Photo</a> -->
 			</div>
