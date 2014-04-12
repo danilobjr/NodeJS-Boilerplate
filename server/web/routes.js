@@ -7,5 +7,5 @@ var accountRoute = require('./routes/accountRoutes'),
 module.exports = function (app, di) {
 	accountRoute(app, di);
 	homeRoute(app);
-	userRoute(app, di);
+	userRoute(app);
 };
