@@ -1,0 +1,28 @@
+<% layout('../layout') %>
+
+<section class="content-header">
+    <h1>
+        Profile
+        <small>subtitle</small>
+    </h1>
+    <!-- <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Index</li>
+    </ol> -->
+</section>
+
+<section class="content">
+	<div class="row">
+		<div class="col-sm-3">
+			<img src="<%= session.user.avatar %>&s=500" alt="" class="thumbnail img-responsive">
+		</div>
+		<div class="col-sm-9">
+			<div class="profile-header">				
+				<h2><%= session.user.fullName %></h2>
+				<p class='text-muted'><i class="fa fa-map-marker fa-fw"></i>&nbsp;&nbsp;&nbsp;TODO: put local on User schema</p>
+				<p class='text-muted'><i class="fa fa-briefcase fa-fw"></i>&nbsp;&nbsp;&nbsp;TODO: put function/company on User schema <a href="#">Company</a></p>
+				<a href="#" class="btn btn-primary"><i class="fa fa-camera"></i>&nbsp;&nbsp;&nbsp;Change Photo</a>
+			</div>
+		</div>
+	</div>
+</section>

@@ -69,6 +69,7 @@ module.exports.createSchema = function () {
 		.virtual('info')
 		.get(function () {
 			return {
+				_id: this._id,
 				name: this.name,
 				fullName: this.name.first + ' ' + this.name.last,
 				email: this.email,
