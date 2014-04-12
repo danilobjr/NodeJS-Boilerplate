@@ -1,0 +1,20 @@
+/* Custom Spaces */
+
+.mb20 {
+	margin-bottom: 20px;
+}
+
+/* Profile */
+
+.profile-header {
+	margin-bottom: 20px;
+}
+
+.profile-header h1 {
+	margin: 0 0 15px 0;
+	line-height: 28px;
+}
+
+.profile-header p {
+	margin-bottom: 3px;
+}
