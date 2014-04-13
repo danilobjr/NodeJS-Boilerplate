@@ -36,6 +36,18 @@ module.exports.signup = function (User, gravatar) {
 		newUser.fullName = req.body.fullName;
 		newUser.password = req.body.password;
 
+		if (req.body.country) {
+			newUser.country = req.body.country;
+		}
+
+		if (req.body.occupation) {
+			newUser.occupation = req.body.occupation;
+		}
+
+		if (req.body.company) {
+			newUser.company = req.body.company;
+		}
+
 		newUser.save(function (error, user, numberAffected) {
 			if (error) { return next(error); }
 

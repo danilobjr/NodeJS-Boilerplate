@@ -12,10 +12,15 @@
 		<div class="col-sm-9">
 			<div class="profile-header">				
 				<h1><%= session.user.fullName %></h1>
-				<p class='text-muted'><i class="fa fa-map-marker fa-fw"></i>&nbsp;&nbsp;&nbsp;<%= session.user.country %></p>
-				<p class='text-muted'><i class="fa fa-briefcase fa-fw"></i>&nbsp;&nbsp;&nbsp;<%= session.user.occupation.description %> at <a href="<%= session.user.occupation.company.website %>" target="_blank"><%= session.user.occupation.company.name %></a></p>
-				<!-- <div class="mb20"></div> -->
-				<!-- <a href="#" class="btn btn-primary"><i class="fa fa-camera"></i>&nbsp;&nbsp;&nbsp;Change Photo</a> -->
+				<% if (typeof session.user.country != 'undefined') { %>
+					<p class='text-muted'><i class="fa fa-map-marker fa-fw"></i><%= session.user.country %></p>
+				<% } %>
+
+				<% if (typeof session.user.occupation != 'undefined' || typeof session.user.company != 'undefined') { %>
+					<p class='text-muted'>
+						<i class="fa fa-briefcase fa-fw"></i><%= (typeof session.user.occupation != 'undefined') ? session.user.occupation : '' %><%= (typeof session.user.occupation != 'undefined' && typeof session.user.company != 'undefined') ? ' at ' : '' %><%= (typeof session.user.company != 'undefined') ? session.user.company : '' %>
+					</p>
+				<% } %>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">
@@ -30,7 +35,7 @@
 					</div>
 					<div class="callout callout-info">
 						<h4>2. Signup</h4>
-						<p>Create an account with <b>same email address</b> used to sign in here</p>
+						<p>Create an account with <b>same email address</b> <i class="fa fa-info-circle text-info" data-toggle='tooltip' data-placement='top' title='<%= session.user.email %>'></i> used to sign in here</p>
 					</div>
 					<div class="callout callout-info">
 						<h4>3. Upload a photo</h4>
@@ -38,7 +43,7 @@
 					</div>
 					<div class="callout callout-info">
 						<h4>4. Done!</h4>
-						<p>Your photo was globally saved! This photo will be used globally in several websites like <a href="http://www.github.com" target="_blank">Github</a>, <a href="http://www.wordpress.org" target="_blank">WordPress</a>, <a href="http://www.stackjoverflow.com" target="_blank">Stack Overflow</a>, <a href="http://www.disqus.com" target="_blank">DISQUS</a>, <a href="http://battlelog.battlefield.com/bf4/" target="_blank">Battlefield 4 Battlelog</a></p>
+						<p>Your photo was globally saved! This photo will be used globally in several websites like <a href="http://www.github.com" target="_blank">Github</a>, <a href="http://www.wordpress.org" target="_blank">WordPress</a>, <a href="http://www.stackjoverflow.com" target="_blank">Stack Overflow</a>, <a href="http://www.disqus.com" target="_blank">DISQUS</a>, <a href="http://battlelog.battlefield.com/bf4/" target="_blank">Battlefield 4 Battlelog</a>, etc.</p>
 					</div>
 				</div>
 			</div>

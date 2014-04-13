@@ -23,6 +23,7 @@ $(function () {
                 required: 'Type your email',
                 email: 'Enter a valid email address'
             },
+            companyWebsite: 'Enter a valid URL',
             password: {
                 required: 'Type your password',
                 minlength: 'Too short. At least 6 characters',

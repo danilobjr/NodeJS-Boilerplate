@@ -18,3 +18,15 @@
 .profile-header p {
 	margin-bottom: 3px;
 }
+
+.profile-header p .fa {
+	margin-right: 7px;
+}
+
+/* Signup */
+
+#signup-form select {
+	border: none;
+	color: #999;
+	padding-left: 8px;
+}

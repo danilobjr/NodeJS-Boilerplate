@@ -4,14 +4,9 @@ module.exports.insertModels = function (User) {
 	var addUsers = function () {
 		var gates = new User({
 			email: 'gates@email.com',
-			occupation: {
-				description: 'Technology Advisor',
-				company: {
-					name: 'Microsoft',
-					website: 'http://www.microsoft.com/'
-				}
-			},
 			country: 'USA',
+			occupation: 'Technology Advisor',
+			company: 'Microsoft',
 			avatar: '/img/bill-gates.png'
 		});
 
@@ -20,14 +15,9 @@ module.exports.insertModels = function (User) {
 
 		var jobs = new User({
 			email: 'jobs@email.com',
-			occupation: {
-				description: 'Ex-CEO',
-				company: {
-					name: 'Apple Inc.',
-					website: 'http://www.apple.com/'
-				}
-			},
 			country: 'USA',
+			occupation: 'Ex-CEO',
+			company: 'Apple Inc.',
 			avatar: '/img/steve-jobs.png'
 		});
 
@@ -36,14 +26,9 @@ module.exports.insertModels = function (User) {
 
 		var wayne = new User({
 			email: 'wayne@email.com',
-			occupation: {
-				description: 'CEO',
-				company: {
-					name: 'Wayne Enterprises',
-					website: 'http://en.wikipedia.org/wiki/Wayne_Enterprises'
-				}
-			},
 			country: 'USA',
+			occupation: 'CEO',
+			company: 'Wayne Enterprises',
 			avatar: '/img/bruce-wayne.png'
 		});
 
