@@ -20,11 +20,10 @@ Table of Contents
 - <a href="http://gruntjs.com/" target="_blank"><b>Grunt</b></a>: a javascript task runner
 - <a href="http://www.almsaeedstudio.com/preview" target="_blank"><b>AdminLTE</b></a>: a free Premium Admin Control Panel Theme that is based on <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.x</a> with tons of elements
 - <a href="http://getbootstrap.com/" target="_blank"><b>Bootstrap 3</b></a> + <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank"><b>Font Awesome</b></a> + <a href="http://ionicons.com/" target="_blank"><b>IonIcons</b></a>
-- *MVC* Project Structure
-- *Local Authentication* with <a href="http://passportjs.org/" target="_blank"><b>Passport.js</b></a>
-- *Awesome Notifications* with <a href="http://sciactive.com/pnotify/" target="_blank"><b>PNotify</b></a>
-
-- *Account Management*
+- <b>MVC</b> Project Structure
+- <b>Local Authentication</b> with <a href="http://passportjs.org/" target="_blank"><b>Passport.js</b></a>
+- <b>Awesome Notifications</b> with <a href="http://sciactive.com/pnotify/" target="_blank"><b>PNotify</b></a>
+- <b>Account Management</b>
     - Gravatar
     - Profile Details
     - Change Password
