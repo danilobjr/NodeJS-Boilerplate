@@ -48,22 +48,29 @@ module.exports.signup = function (User, gravatar) {
 			newUser.company = req.body.company;
 		}
 
-		newUser.save(function (error, user, numberAffected) {
-			if (error) { return next(error); }
-
-			var success = false,
-				message = '';
+		newUser.save(function (saveError, user, numberAffected) {
+			if (saveError) { return next(saveError); }
 
 			if (numberAffected) {
-				success = true;
-				message = 'Go to sign in page';
-			} else {
-				message = 'User not saved';
-			}
+				passport.authenticate('local', function(authenticateError, user, info) {
+					if (authenticateError) { return next(authenticateError); }
 
-			req.flash('signup-success', success);
-			req.flash('signup-message', message);
-			res.redirect('/signup');
+					if (!user) {
+						req.flash('signup-success', false);
+						req.flash('signup-message', info.message);
+						return res.redirect('/signup');
+					}
+
+					req.logIn(user, function(loginError) {
+						if (loginError) { return next(loginError); }
+						res.redirect('/');
+					});
+				})(req, res, next);
+			} else {
+				req.flash('signup-success', false);
+				req.flash('signup-message', 'User not created');
+				return res.redirect('/signup');
+			}
 		});
 	};
 };
