@@ -8,6 +8,7 @@
         <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <link href="/bower_components/ionicons/css/ionicons.min.css" rel="stylesheet" />
+        <link href="/bower_components/pnotify/pnotify.core.css" rel="stylesheet" />
 
         <link href="/css/AdminLTE.css" rel="stylesheet" />
         <link href="/css/custom.css" rel="stylesheet" />
@@ -155,8 +156,14 @@
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>-->
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bower_components/pnotify/pnotify.core.js"></script>
 
         <script src="/js/AdminLTE.js"></script>
         <script src="/js/AdminLTE_Custom.js"></script>
+
+        <!-- Specific Page Scripts -->
+        <%-scripts%>
+
+        <%-partial('partials/message') %>
     </body>
 </html>
