@@ -36,7 +36,8 @@ $(function () {
     $(document).on('click', '[data-notify=confirm]', function (e) {
         e.preventDefault();
         var that = $(e.currentTarget);
-        showConfirmDialog('Confirm', 'Do you really want to proceed?', function(isConfirmed) {
+        var message = that.data().notifyMessage || 'Do you really want to proceed?';
+        showConfirmDialog('Confirm', message, function(isConfirmed) {
             if (isConfirmed) {
                 window.location = that.attr('href');
             }
