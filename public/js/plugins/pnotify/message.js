@@ -14,10 +14,13 @@ $(function () {
 	};
 
 	if ($.notification.messageContainer.length) {
-
 		var data = $.notification.messageContainer.data();
-
-		data.type = (data.success == true) ? 'success' : 'warning';
+debugger;
+		if (data.success != undefined) {
+			data.type = (data.success == true) ? 'success' : 'warning';
+		} else {
+			data.type = 'info';
+		}
 
 		setTimeout(function() {
 			$.notification.showNotification(data.description, data.type);

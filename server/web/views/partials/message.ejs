@@ -1,7 +1,7 @@
 <!-- Partial: Message -->
 
 <% if (typeof message != 'undefined' && message.description.length > 0) { %>
-	<div id="message" class="hidden" data-success="<%= message.success %>" data-description="<%= message.description %>"></div>
+	<div id="message" class="hidden" <%= (typeof message.success != 'undefined') ? 'data-success='+message.success : '' %> data-description="<%= message.description %>"></div>
 <% } %>
 
 <script src='/js/plugins/pnotify/config.pnotify.js'></script>

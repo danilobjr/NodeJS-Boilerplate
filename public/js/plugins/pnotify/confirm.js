@@ -13,7 +13,6 @@ $(function () {
 
         $.each(buttons, function(b, val) {
             text.find("div.button-container").append($('<button style="margin-left: 5px;" class="btn btn-default btn-small">' + b + '</button>').click(function() {
-                debugger;
                 notice.remove();
                 callback.call(notice, val);
             }));
