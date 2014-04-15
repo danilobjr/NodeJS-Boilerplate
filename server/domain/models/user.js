@@ -104,15 +104,6 @@ module.exports.createSchema = function () {
 			return email.length;
 		}, 'Email cannot be empty');
 
-	// validate required password
-	UserSchema
-		.path('hashPassword')
-		.validate(function (hashPassword) {
-			// do not validate, if authentication is done by oauth strategies
-			if(oAuthTypes.indexOf(this.oAuth) !== -1) return true;
-			return hashPassword.length;
-		}, 'Password cannot be empty');
-
 	// validate existing email
 	UserSchema
 		.path('email')
@@ -132,6 +123,16 @@ module.exports.createSchema = function () {
 				respond(true);
 			});
 		}, 'Email is already in use');
+
+	// validate required password
+	UserSchema
+		.path('hashPassword')
+		.validate(function (hashPassword) {
+			// do not validate, if authentication is done by oauth strategies
+			if(oAuthTypes.indexOf(this.oAuth) !== -1) return true;
+			return hashPassword.length;
+		}, 'Password cannot be empty');
+
 
 	var valueExist = function(value) {
 	  return value && value.length;
