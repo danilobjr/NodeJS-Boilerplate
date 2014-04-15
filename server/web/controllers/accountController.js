@@ -126,3 +126,18 @@ module.exports.changePassword = function (User) {
 		});
 	};
 };
+
+module.exports.deleteAccount = function (User) {
+	return function (req, res, next) {
+		User.findById(req.user._id, function (errorFind, user) {
+			if (errorFind) { return next(errorFind); }
+			if (!user) { return res.redirect('/logout'); }
+
+			user.remove(function (errorRemove, userRemoved) {
+				if (errorRemove) { return next(errorRemove); }
+
+				res.redirect('/logout');
+			});
+		});
+	};
+};

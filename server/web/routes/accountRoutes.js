@@ -11,4 +11,5 @@ module.exports = function (app, di) {
 	app.post('/signup', accountController.signup.inject(di));
 	app.get('/change-password', isLoggedIn, accountController.changePasswordPage);
 	app.post('/change-password', isLoggedIn, accountController.changePassword.inject(di));
+	app.get('/delete-account', isLoggedIn, accountController.deleteAccount.inject(di));
 };
