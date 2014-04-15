@@ -27,7 +27,7 @@ $(function () {
             password: {
                 required: 'Type your password',
                 minlength: 'Too short. At least 6 characters',
-                minlength: 'Too long. Maximum 20 characters'
+                maxlength: 'Too long. Maximum 20 characters'
             },
             retypePassword: {
                 required: 'Retype your password',
