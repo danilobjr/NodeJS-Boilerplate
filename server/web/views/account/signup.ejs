@@ -25,9 +25,9 @@
             <form id='signup-form' action="/signup" method="post">
                 <div class="body bg-gray">
                     <% if (message.description.length > 0) { %>
-                        <div class="alert <%= (message.success) ? 'alert-success' : 'alert-warning' %> alert-dismissable">
+                        <div class="alert <%= (message.success == true) ? 'alert-success' : 'alert-warning' %> alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <b><%= (message.success) ? 'You in!' : 'Oops!' %></b>
+                            <b><%= (message.success == true) ? 'You in!' : 'Oops!' %></b>
                             <%= message.description %>
                         </div>
                     <% } %>
@@ -62,14 +62,14 @@
                 </div>
             </form>
 
-            <div class="margin text-center">
+            <!-- <div class="margin text-center">
                 <span>Register using social networks</span>
                 <br/>
                 <button class="btn btn-circle"><i class="fa fa-github"></i></button>
                 <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
                 <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
                 <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
-            </div>
+            </div> -->
         </div>
 
 
