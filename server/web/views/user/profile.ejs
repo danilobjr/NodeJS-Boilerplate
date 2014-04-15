@@ -12,6 +12,7 @@
 		<div class="col-sm-9">
 			<div class="profile-header">				
 				<h1><%= session.user.fullName %></h1>
+				
 				<% if (typeof session.user.country != 'undefined') { %>
 					<p class='text-muted'><i class="fa fa-map-marker fa-fw"></i><%= session.user.country %></p>
 				<% } %>
@@ -21,6 +22,10 @@
 						<i class="fa fa-briefcase fa-fw"></i><%= (typeof session.user.occupation != 'undefined') ? session.user.occupation : '' %><%= (typeof session.user.occupation != 'undefined' && typeof session.user.company != 'undefined') ? ' at ' : '' %><%= (typeof session.user.company != 'undefined') ? session.user.company : '' %>
 					</p>
 				<% } %>
+
+				<div class="mb20"></div>
+				
+				<a href="/change-password" class="btn btn-primary"><i class="fa fa-unlock-alt"></i>Change Password</a>
 			</div>
 			<div class="box box-info">
 				<div class="box-header">

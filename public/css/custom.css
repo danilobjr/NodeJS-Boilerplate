@@ -4,6 +4,12 @@
 	margin-bottom: 20px;
 }
 
+/* General */
+
+.btn .fa {
+	margin-right: 7px;
+}
+
 /* Profile */
 
 .profile-header {
@@ -17,10 +23,6 @@
 
 .profile-header p {
 	margin-bottom: 3px;
-}
-
-.profile-header p .fa {
-	margin-right: 7px;
 }
 
 /* Signup */

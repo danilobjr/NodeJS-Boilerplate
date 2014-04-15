@@ -49,17 +49,20 @@ module.exports.signup = function (User, gravatar) {
 		}
 
 		newUser.save(function (saveError, user, numberAffected) {
-			if (saveError) { return next(saveError); }
+			if (saveError) { 
+				if (saveError.name = 'ValidationError') {
+					var errors = saveError.errors;
+					req.flash('signup-success', 'false');
+					req.flash('signup-message', errors[Object.keys(errors)[0]].message);
+					return res.redirect('/signup');
+				}
+				
+				return next(saveError);
+			}
 
 			if (numberAffected) {
 				passport.authenticate('local', function(authenticateError, user, info) {
 					if (authenticateError) { return next(authenticateError); }
-
-					if (!user) {
-						req.flash('signup-success', false);
-						req.flash('signup-message', info.message);
-						return res.redirect('/signup');
-					}
 
 					req.logIn(user, function(loginError) {
 						if (loginError) { return next(loginError); }
@@ -67,9 +70,58 @@ module.exports.signup = function (User, gravatar) {
 					});
 				})(req, res, next);
 			} else {
-				req.flash('signup-success', false);
+				req.flash('signup-success', 'false');
 				req.flash('signup-message', 'User not created');
 				return res.redirect('/signup');
+			}
+		});
+	};
+};
+
+module.exports.changePasswordPage = function (req, res) {
+	res.render('account/change-password', {
+		message: {
+			success: req.flash('change-password-success'),
+			description: req.flash('change-password-message')
+		}
+	});
+};
+
+module.exports.changePassword = function (User) {
+	return function (req, res, next) {
+		User.findById(req.user._id, function (errorFind, user) {
+			if (errorFind) { return next(errorFind); }
+
+			// if user was not found, redirect to logout, cause session is over
+			if (!user) {
+				res.redirect('/logout');
+			}
+
+			if (user.authenticate(req.body.oldPassword)) {
+
+				user.password = req.body.newPassword;
+
+				user.save(function (errorSave, user, numberAffected) {
+					if (errorSave) { return next(errorSave); }
+
+					var success = 'false',
+						message = '';
+
+					if (numberAffected) {
+						success = 'true';
+						message = 'Password changed';
+					} else {
+						message = 'Password could not change. Try later'
+					}
+
+					req.flash('change-password-success', success);
+					req.flash('change-password-message', message);
+					res.redirect('/change-password');
+				});
+			} else {
+				req.flash('change-password-success', 'false');
+				req.flash('change-password-message', 'This is not your current password');
+				res.redirect('/change-password');
 			}
 		});
 	};
