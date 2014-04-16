@@ -13,15 +13,13 @@ var config = require('./server/config/config');
 // database settings
 var mongoose = require('./server/config/mongoose').setup(config);
 
-// dependency injector setting
-omni.addInjectToFunctionPrototype(); // Attaches a convenience helper .inject(di) to Function.prototype
-var di = omni();
-require('./server/config/dependencyInjector').createDependencies(mongoose, di);
+// dependency injector settings
+var di = require('./server/config/dependencyInjector').setup(mongoose);
 
-// put data to database
+// put data in database
 require('./server/config/dbSeed').insertModels.inject(di);
 
-// passport settings
+// passport.js settings
 require('./server/config/passport').setup.inject(di);
 
 var app = express();

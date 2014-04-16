@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports.createDependencies = function (mongoose, di) {
+var omni = require('omni-di');
+
+var createDependencies = function (mongoose, di) {
 	di.assemble([
 		[
 			{
@@ -16,4 +18,14 @@ module.exports.createDependencies = function (mongoose, di) {
 			}
 		]
 	]);
+};
+
+module.exports.setup = function (mongoose) {
+	// Attaches a convenience helper .inject(di) to Function.prototype
+	omni.addInjectToFunctionPrototype(); 
+	var di = omni();
+
+	createDependencies(di, mongoose);
+
+	return di;
 };
