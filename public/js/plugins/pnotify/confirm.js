@@ -1,3 +1,5 @@
+// see config.pnotify.js
+
 $(function () {
     var showConfirmDialog = function (title, text, callback, buttons) {
         if (typeof buttons !== "object") {
