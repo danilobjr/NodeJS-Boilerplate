@@ -1,5 +1,11 @@
 'use strict';
 
 module.exports.index = function (req, res) {
-	res.render('home/index', { title: 'Welcome to Node.js Boilerplate!' });
+	res.render('home/index', { 
+		title: 'Welcome to Node.js Boilerplate!', 
+		message: {
+			description: 'Welcome, ' + req.user.name.first + '! This is a notification example. ' + 
+				'You can change your password at any time. Check your profile details.'
+		} 
+	});
 };
