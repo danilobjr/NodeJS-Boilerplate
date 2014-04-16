@@ -1,4 +1,19 @@
 $(function () {
+
+    // countries
+
+    var countriesPromise = $.getJSON("/countries.json");
+    countriesPromise.done(function (data) {
+        var select = $('[name=country]');
+        data.forEach(function (country) {
+            var option = $('<option>').appendTo(select);
+            option.val(country.name);
+            option.text(country.name);
+        });
+    });
+
+    // form validate
+
 	$('form').validate({
         rules: {
             fullName: {
