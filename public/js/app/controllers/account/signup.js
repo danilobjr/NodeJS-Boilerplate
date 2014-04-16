@@ -1,7 +1,7 @@
 $(function () {
-
     // countries
 
+    var start = Date.now();
     var countriesPromise = $.getJSON("/countries.json");
     countriesPromise.done(function (data) {
         var select = $('[name=country]');
@@ -10,6 +10,7 @@ $(function () {
             option.val(country.name);
             option.text(country.name);
         });
+        console.log('Countries loaded and appended in ' + (Date.now() - start) + 'ms');
     });
 
     // form validate
