@@ -25,7 +25,7 @@ module.exports.setup = function (mongoose) {
 	omni.addInjectToFunctionPrototype(); 
 	var di = omni();
 
-	createDependencies(di, mongoose);
+	createDependencies(mongoose, di);
 
 	return di;
 };
