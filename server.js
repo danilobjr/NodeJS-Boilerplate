@@ -11,10 +11,10 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var config = require('./server/config/config');
 
 // database settings
-var mongoose = require('./server/config/mongoose').setup(config);
+require('./server/config/mongoose').setup(config);
 
 // dependency injector settings
-var di = require('./server/config/dependencyInjector').setup(mongoose);
+var di = require('./server/config/dependencyInjector');
 
 // put data in database
 require('./server/config/dbSeed').insertModels.inject(di);
@@ -28,7 +28,7 @@ var app = express();
 require('./server/config/express')(app, config);
 
 // routes' register
-require('./server/web/routes')(app, di);
+require('./server/web/routes')(app);
 
 var server = http.createServer(app);
 server.listen(config.port, function () {

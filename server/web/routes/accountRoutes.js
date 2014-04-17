@@ -1,9 +1,10 @@
 'use strict';
 
 var accountController = require('./../controllers/accountController'),
-	isLoggedIn = require('./../../config/middleware').isLoggedIn;
+	isLoggedIn = require('./../../config/middleware').isLoggedIn,
+	di = require('./../../config/dependencyInjector');
 
-module.exports = function (app, di) {
+module.exports = function (app) {
 	app.get('/login', accountController.loginPage);
 	app.post('/login', accountController.login);
 	app.get('/logout', accountController.logout);
