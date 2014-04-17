@@ -42,7 +42,7 @@ module.exports.signup = function (userManager, User, gravatar) {
 						req.flash('signup-success', done.toString());
 						req.flash('signup-message', errors[Object.keys(errors)[0]].message);
 						return res.redirect('/signup');
-					} 
+					}
 					
 					return next(saveError);
 				}
@@ -88,6 +88,7 @@ module.exports.changePassword = function (userManager, User) {
 		};
 
 		userManager.changePassword(data, objects, function (error, user, message, done) {
+			// TODO: deal with schemaErrors
 			if (error) { return next(error); }
 
 			// if user was not found, redirect to logout, cause session is over
@@ -102,17 +103,22 @@ module.exports.changePassword = function (userManager, User) {
 	};
 };
 
-module.exports.deleteAccount = function (User) {
+module.exports.deleteAccount = function (userManager, User) {
 	return function (req, res, next) {
-		User.findById(req.user._id, function (errorFind, user) {
-			if (errorFind) { return next(errorFind); }
-			if (!user) { return res.redirect('/logout'); }
+		var objects = {
+			User: User
+		};
 
-			user.remove(function (errorRemove, userRemoved) {
-				if (errorRemove) { return next(errorRemove); }
+		userManager.deleteUser(req.user._id, objects, function (error, user, message, done) {
+			if (error) { return next(error); }
 
+			if (!done) {
+				req.flash('profile-success', done.toString());
+				req.flash('profile-message', message);
+				res.redirect('/profile');
+			} else {
 				res.redirect('/logout');
-			});
+			}
 		});
 	};
 };

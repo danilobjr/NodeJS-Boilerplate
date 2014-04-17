@@ -87,3 +87,25 @@ module.exports.changePassword = function (data, objects, callback) {
 		}
 	});
 };
+
+module.exports.deleteUser = function (userId, objects, callback) {
+	var User = objects.User;
+
+	User.findById(userId, function (errorFind, user) {
+		if (errorFind) { return callback(errorFind); }
+
+		if (!user) { 
+			var message = 'User not found';
+			var done = false;
+			return callback(null, user, message, done); 
+		}
+
+		user.remove(function (errorRemove, userRemoved) {
+			if (errorRemove) { return callback(errorRemove); }
+
+			var message = 'User removed';
+			var done = true;
+			callback(null, userRemoved, message, done);
+		});
+	});
+};
