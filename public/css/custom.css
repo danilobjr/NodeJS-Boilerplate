@@ -25,6 +25,10 @@
 	margin-bottom: 3px;
 }
 
+.profile-header p .fa {
+	margin-right: 7px;
+}
+
 /* Signup */
 
 #signup-form select {
