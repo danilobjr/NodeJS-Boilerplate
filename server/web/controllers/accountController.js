@@ -29,40 +29,54 @@ module.exports.signupPage = function (req, res) {
 module.exports.signup = function (userManager, User, gravatar) {
 	return function (req, res, next) {
 
+		// data
+
+		var newUserData = req.body;
+
 		var objects = {
 			User: User, 
 			gravatar: gravatar
 		};
 
-		userManager.createUser(req.body, objects, function (newUser) {
-			userManager.saveUser(newUser, function (saveError, userSaved, message, done) {
-				if (saveError) {
-					if (saveError.name == 'ValidationError') {
-						var errors = saveError.errors;
-						req.flash('signup-success', done.toString());
-						req.flash('signup-message', errors[Object.keys(errors)[0]].message);
-						return res.redirect('/signup');
-					}
-					
-					return next(saveError);
-				}
+		// callbacks
 
-				if (!done) {
-					req.flash('signup-success', done.toString());
-					req.flash('signup-message', message);
+		var createUserCallback = function (newUser) {
+			userManager.saveUser(newUser, saveUserCallback);
+		};
+
+		var saveUserCallback = function (saveError, userSaved, message, done) {
+			if (saveError) {
+				if (saveError.name == 'ValidationError') {
+					var errors = saveError.errors;
+					req.flash('signup-success', 'false');
+					req.flash('signup-message', errors[Object.keys(errors)[0]].message);
 					return res.redirect('/signup');
 				}
+				
+				return next(saveError);
+			}
 
-				passport.authenticate('local', function(authenticateError, userSaved) {
-					if (authenticateError) { return next(authenticateError); }
+			if (!done) {
+				req.flash('signup-success', done.toString());
+				req.flash('signup-message', message);
+				return res.redirect('/signup');
+			}
 
-					req.logIn(userSaved, function(loginError) {
-						if (loginError) { return next(loginError); }						
-						res.redirect('/');
-					});
-				})(req, res, next);
+			passport.authenticate('local', authenticateCallback)(req, res, next);
+		};
+
+		var authenticateCallback = function (authenticateError, userSaved) {
+			if (authenticateError) { return next(authenticateError); }
+
+			req.logIn(userSaved, function(loginError) {
+				if (loginError) { return next(loginError); }
+				res.redirect('/');
 			});
-		});
+		};
+
+		// execution
+
+		userManager.createUser(newUserData, objects, createUserCallback);
 	};
 };
 

@@ -51,7 +51,7 @@ module.exports.changePassword = function (data, objects, callback) {
 	var userData = data,
 		User = objects.User;
 
-	User.findById(userData._id, function (errorFind, userFound) {
+	var findCallback = function (errorFind, userFound) {
 		if (errorFind) { return callback(errorFind); }
 
 		// if user was not found, redirect to logout, cause session is over
@@ -65,33 +65,37 @@ module.exports.changePassword = function (data, objects, callback) {
 
 			userFound.password = userData.newPassword;
 
-			userFound.save(function (errorSave, userSaved, numberAffected) {
-				if (errorSave) { return callback(errorSave); }
-
-				var done = false,
-					message = '';
-
-				if (numberAffected) {
-					done = true;
-					message = 'Password changed';
-				} else {
-					message = 'Password could not change. Try later';
-				}
-
-				callback(null, userSaved, message, done);
-			});
+			userFound.save(saveCallback);
 		} else {
 			var done = false;
 			var message = 'This is not your current password';
 			callback(null, userFound, message, done);
 		}
-	});
+	};
+
+	var saveCallback = function (errorSave, userSaved, numberAffected) {
+		if (errorSave) { return callback(errorSave); }
+
+		var done = false,
+			message = '';
+
+		if (numberAffected) {
+			done = true;
+			message = 'Password changed';
+		} else {
+			message = 'Password could not change. Try later';
+		}
+
+		callback(null, userSaved, message, done);
+	};
+
+	User.findById(userData._id, findCallback);
 };
 
 module.exports.deleteUser = function (userId, objects, callback) {
 	var User = objects.User;
 
-	User.findById(userId, function (errorFind, user) {
+	var findCallback = function (errorFind, user) {
 		if (errorFind) { return callback(errorFind); }
 
 		if (!user) { 
@@ -100,12 +104,16 @@ module.exports.deleteUser = function (userId, objects, callback) {
 			return callback(null, user, message, done); 
 		}
 
-		user.remove(function (errorRemove, userRemoved) {
-			if (errorRemove) { return callback(errorRemove); }
+		user.remove(removeCallback);
+	};
 
-			var message = 'User removed';
-			var done = true;
-			callback(null, userRemoved, message, done);
-		});
-	});
+	var removeCallback = function (errorRemove, userRemoved) {
+		if (errorRemove) { return callback(errorRemove); }
+
+		var message = 'User removed';
+		var done = true;
+		callback(null, userRemoved, message, done);
+	};
+
+	User.findById(userId, findCallback);
 };
