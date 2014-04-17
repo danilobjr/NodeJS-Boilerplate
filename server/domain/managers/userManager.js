@@ -46,3 +46,44 @@ module.exports.saveUser = function (user, callback) {
 		}
 	});	
 };
+
+module.exports.changePassword = function (data, objects, callback) {
+	var userData = data,
+		User = objects.User;
+
+	User.findById(userData._id, function (errorFind, userFound) {
+		if (errorFind) { return callback(errorFind); }
+
+		// if user was not found, redirect to logout, cause session is over
+		if (!userFound) {
+			var done = false;
+			var message = 'User not found';
+			return callback(null, userFound, message, done);
+		}
+
+		if (userFound.authenticate(userData.oldPassword)) {
+
+			userFound.password = userData.newPassword;
+
+			userFound.save(function (errorSave, userSaved, numberAffected) {
+				if (errorSave) { return callback(errorSave); }
+
+				var done = false,
+					message = '';
+
+				if (numberAffected) {
+					done = true;
+					message = 'Password changed';
+				} else {
+					message = 'Password could not change. Try later';
+				}
+
+				callback(null, userSaved, message, done);
+			});
+		} else {
+			var done = false;
+			var message = 'This is not your current password';
+			callback(null, userFound, message, done);
+		}
+	});
+};

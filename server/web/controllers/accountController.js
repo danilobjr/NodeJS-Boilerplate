@@ -75,42 +75,29 @@ module.exports.changePasswordPage = function (req, res) {
 	});
 };
 
-module.exports.changePassword = function (User) {
+module.exports.changePassword = function (userManager, User) {
 	return function (req, res, next) {
-		User.findById(req.user._id, function (errorFind, user) {
-			if (errorFind) { return next(errorFind); }
+		var data = {
+			_id: req.user._id,
+			oldPassword: req.body.oldPassword,
+			newPassword: req.body.newPassword
+		};
+
+		var objects = {
+			User: User
+		};
+
+		userManager.changePassword(data, objects, function (error, user, message, done) {
+			if (error) { return next(error); }
 
 			// if user was not found, redirect to logout, cause session is over
 			if (!user) {
-				res.redirect('/logout');
+				return res.redirect('/logout');
 			}
-
-			if (user.authenticate(req.body.oldPassword)) {
-
-				user.password = req.body.newPassword;
-
-				user.save(function (errorSave, user, numberAffected) {
-					if (errorSave) { return next(errorSave); }
-
-					var success = 'false',
-						message = '';
-
-					if (numberAffected) {
-						success = 'true';
-						message = 'Password changed';
-					} else {
-						message = 'Password could not change. Try later'
-					}
-
-					req.flash('change-password-success', success);
-					req.flash('change-password-message', message);
-					res.redirect('/change-password');
-				});
-			} else {
-				req.flash('change-password-success', 'false');
-				req.flash('change-password-message', 'This is not your current password');
-				res.redirect('/change-password');
-			}
+			
+			req.flash('change-password-success', done.toString());
+			req.flash('change-password-message', message);
+			res.redirect('/change-password');
 		});
 	};
 };
