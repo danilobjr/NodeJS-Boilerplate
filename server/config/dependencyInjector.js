@@ -11,10 +11,6 @@ var createDependencies = function (di) {
 				obj: require('gravatar')
 			},
 			{
-				name: 'userManager',
-				obj: require('./../domain/managers/userManager')
-			},
-			{
 				name : 'User',
 				factory : function() {
 					return mongoose.model('User');

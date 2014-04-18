@@ -1,119 +1,262 @@
 'use strict';
 
-module.exports.createUser = function (data, objects, callback) {
-	var User = objects.User,
-		gravatar = objects.gravatar;
+module.exports = function (User, gravatar) {
+	var createUser = function (data, callback) {
+		var newUser = new User({
+			email: data.email
+		});
 
-	var newUser = new User({
-		email: data.email
-	});
+		newUser.avatar = gravatar.url(newUser.email, { d: 'mm' });
+		newUser.fullName = data.fullName;
+		newUser.password = data.password;
 
-	newUser.avatar = gravatar.url(newUser.email, { d: 'mm' });
-	newUser.fullName = data.fullName;
-	newUser.password = data.password;
-
-	if (data.country) {
-		newUser.country = data.country;
-	}
-
-	if (data.occupation) {
-		newUser.occupation = data.occupation;
-	}
-
-	if (data.company) {
-		newUser.company = data.company;
-	}
-
-	callback(newUser);
-};
-
-module.exports.saveUser = function (user, callback) {
-	user.save(function (saveError, userSaved, numberAffected) {
-		var message = '',
-			done = false;
-
-		if (saveError) { 
-			return callback(saveError);
+		if (data.country) {
+			newUser.country = data.country;
 		}
 
-		if (numberAffected) {
-			message = 'User saved';
-			done = true;
+		if (data.occupation) {
+			newUser.occupation = data.occupation;
+		}
+
+		if (data.company) {
+			newUser.company = data.company;
+		}
+
+		callback(newUser);
+	};
+
+	var saveUser = function (user, callback) {
+		user.save(function (saveError, userSaved, numberAffected) {
+			var message = '',
+				done = false;
+
+			if (saveError) { 
+				return callback(saveError);
+			}
+
+			if (numberAffected) {
+				message = 'User saved';
+				done = true;
+				callback(null, userSaved, message, done);
+			} else {
+				message = 'User not saved';
+				callback(null, null, message, done);
+			}
+		});	
+	};
+
+	var changePassword = function (data, callback) {
+		// data
+
+		var userData = data;
+
+		// callbacks
+
+		var findCallback = function (errorFind, userFound) {
+			if (errorFind) { return callback(errorFind); }
+
+			// if user was not found, redirect to logout, cause session is over
+			if (!userFound) {
+				var done = false;
+				var message = 'User not found';
+				return callback(null, userFound, message, done);
+			}
+
+			if (userFound.authenticate(userData.oldPassword)) {
+
+				userFound.password = userData.newPassword;
+
+				userFound.save(saveCallback);
+			} else {
+				var done = false;
+				var message = 'This is not your current password';
+				callback(null, userFound, message, done);
+			}
+		};
+
+		var saveCallback = function (errorSave, userSaved, numberAffected) {
+			if (errorSave) { return callback(errorSave); }
+
+			var done = false,
+				message = '';
+
+			if (numberAffected) {
+				done = true;
+				message = 'Password changed';
+			} else {
+				message = 'Password could not change. Try later';
+			}
+
 			callback(null, userSaved, message, done);
-		} else {
-			message = 'User not saved';
-			callback(null, null, message, done);
-		}
-	});	
+		};
+
+		// execution
+
+		User.findById(userData._id, findCallback);
+	};
+
+	var deleteUser = function (userId, callback) {
+		// callbacks
+
+		var findCallback = function (errorFind, user) {
+			if (errorFind) { return callback(errorFind); }
+
+			if (!user) { 
+				var message = 'User not found';
+				var done = false;
+				return callback(null, user, message, done); 
+			}
+
+			user.remove(removeCallback);
+		};
+
+		var removeCallback = function (errorRemove, userRemoved) {
+			if (errorRemove) { return callback(errorRemove); }
+
+			var message = 'User removed';
+			var done = true;
+			callback(null, userRemoved, message, done);
+		};
+
+		// execution
+
+		User.findById(userId, findCallback);
+	};
+
+	return {
+		createUser: createUser,
+		saveUser: saveUser,
+		changePassword: changePassword,
+		deleteUser: deleteUser
+	};
 };
 
-module.exports.changePassword = function (data, objects, callback) {
-	var userData = data,
-		User = objects.User;
+// var di = require('./../../config/dependencyInjector');
 
-	var findCallback = function (errorFind, userFound) {
-		if (errorFind) { return callback(errorFind); }
+// module.exports.createUser = function (User, gravatar) {
+// 	return function (data, callback) {
+// 		var newUser = new User({
+// 			email: data.email
+// 		});
 
-		// if user was not found, redirect to logout, cause session is over
-		if (!userFound) {
-			var done = false;
-			var message = 'User not found';
-			return callback(null, userFound, message, done);
-		}
+// 		newUser.avatar = gravatar.url(newUser.email, { d: 'mm' });
+// 		newUser.fullName = data.fullName;
+// 		newUser.password = data.password;
 
-		if (userFound.authenticate(userData.oldPassword)) {
+// 		if (data.country) {
+// 			newUser.country = data.country;
+// 		}
 
-			userFound.password = userData.newPassword;
+// 		if (data.occupation) {
+// 			newUser.occupation = data.occupation;
+// 		}
 
-			userFound.save(saveCallback);
-		} else {
-			var done = false;
-			var message = 'This is not your current password';
-			callback(null, userFound, message, done);
-		}
-	};
+// 		if (data.company) {
+// 			newUser.company = data.company;
+// 		}
 
-	var saveCallback = function (errorSave, userSaved, numberAffected) {
-		if (errorSave) { return callback(errorSave); }
+// 		callback(newUser);
+// 	};
+// }.inject(di);
 
-		var done = false,
-			message = '';
+// module.exports.saveUser = function (user, callback) {
+// 	user.save(function (saveError, userSaved, numberAffected) {
+// 		var message = '',
+// 			done = false;
 
-		if (numberAffected) {
-			done = true;
-			message = 'Password changed';
-		} else {
-			message = 'Password could not change. Try later';
-		}
+// 		if (saveError) { 
+// 			return callback(saveError);
+// 		}
 
-		callback(null, userSaved, message, done);
-	};
+// 		if (numberAffected) {
+// 			message = 'User saved';
+// 			done = true;
+// 			callback(null, userSaved, message, done);
+// 		} else {
+// 			message = 'User not saved';
+// 			callback(null, null, message, done);
+// 		}
+// 	});	
+// };
 
-	User.findById(userData._id, findCallback);
-};
+// module.exports.changePassword = function (User) {
+// 	return function (data, callback) {
+// 		// data
 
-module.exports.deleteUser = function (userId, objects, callback) {
-	var User = objects.User;
+// 		var userData = data;
 
-	var findCallback = function (errorFind, user) {
-		if (errorFind) { return callback(errorFind); }
+// 		// callbacks
 
-		if (!user) { 
-			var message = 'User not found';
-			var done = false;
-			return callback(null, user, message, done); 
-		}
+// 		var findCallback = function (errorFind, userFound) {
+// 			if (errorFind) { return callback(errorFind); }
 
-		user.remove(removeCallback);
-	};
+// 			// if user was not found, redirect to logout, cause session is over
+// 			if (!userFound) {
+// 				var done = false;
+// 				var message = 'User not found';
+// 				return callback(null, userFound, message, done);
+// 			}
 
-	var removeCallback = function (errorRemove, userRemoved) {
-		if (errorRemove) { return callback(errorRemove); }
+// 			if (userFound.authenticate(userData.oldPassword)) {
 
-		var message = 'User removed';
-		var done = true;
-		callback(null, userRemoved, message, done);
-	};
+// 				userFound.password = userData.newPassword;
 
-	User.findById(userId, findCallback);
-};
+// 				userFound.save(saveCallback);
+// 			} else {
+// 				var done = false;
+// 				var message = 'This is not your current password';
+// 				callback(null, userFound, message, done);
+// 			}
+// 		};
+
+// 		var saveCallback = function (errorSave, userSaved, numberAffected) {
+// 			if (errorSave) { return callback(errorSave); }
+
+// 			var done = false,
+// 				message = '';
+
+// 			if (numberAffected) {
+// 				done = true;
+// 				message = 'Password changed';
+// 			} else {
+// 				message = 'Password could not change. Try later';
+// 			}
+
+// 			callback(null, userSaved, message, done);
+// 		};
+
+// 		// execution
+
+// 		User.findById(userData._id, findCallback);
+// 	};
+// }.inject(di);
+
+// module.exports.deleteUser = function (User) {
+// 	return function (userId, callback) {
+// 		// callbacks
+
+// 		var findCallback = function (errorFind, user) {
+// 			if (errorFind) { return callback(errorFind); }
+
+// 			if (!user) { 
+// 				var message = 'User not found';
+// 				var done = false;
+// 				return callback(null, user, message, done); 
+// 			}
+
+// 			user.remove(removeCallback);
+// 		};
+
+// 		var removeCallback = function (errorRemove, userRemoved) {
+// 			if (errorRemove) { return callback(errorRemove); }
+
+// 			var message = 'User removed';
+// 			var done = true;
+// 			callback(null, userRemoved, message, done);
+// 		};
+
+// 		// execution
+
+// 		User.findById(userId, findCallback);
+// 	};
+// }.inject(di);

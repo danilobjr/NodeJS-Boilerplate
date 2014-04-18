@@ -1,16 +1,16 @@
 'use strict';
 
-var accountController = require('./../controllers/accountController'),
-	isLoggedIn = require('./../../config/middleware').isLoggedIn,
-	di = require('./../../config/dependencyInjector');
+var	di = require('./../../config/dependencyInjector'),
+	accountController = require('./../controllers/accountController').inject(di),
+	isLoggedIn = require('./../../config/middleware').isLoggedIn;
 
 module.exports = function (app) {
 	app.get('/login', accountController.loginPage);
 	app.post('/login', accountController.login);
 	app.get('/logout', accountController.logout);
 	app.get('/signup', accountController.signupPage);
-	app.post('/signup', accountController.signup.inject(di));
+	app.post('/signup', accountController.signup);
 	app.get('/change-password', isLoggedIn, accountController.changePasswordPage);
-	app.post('/change-password', isLoggedIn, accountController.changePassword.inject(di));
-	app.get('/delete-account', isLoggedIn, accountController.deleteAccount.inject(di));
+	app.post('/change-password', isLoggedIn, accountController.changePassword);
+	app.get('/delete-account', isLoggedIn, accountController.deleteAccount);
 };
