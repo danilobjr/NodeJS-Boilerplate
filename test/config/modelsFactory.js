@@ -1,6 +1,6 @@
 'use strict';
 
-var createUsers = function (User) {
+module.exports.createUsers = function (User, gravatar) {
 	var gates = new User({
 		fullName: 'Bill Gates',
 		email: 'gates@email.com',
@@ -8,7 +8,7 @@ var createUsers = function (User) {
 		country: 'USA',
 		occupation: 'Technology Advisor',
 		company: 'Microsoft',
-		avatar: '/img/bill-gates.png'
+		avatar: gravatar.url('gates@email.com', { d: 'mm' })
 	});
 
 	var jobs = new User({
@@ -18,7 +18,7 @@ var createUsers = function (User) {
 		country: 'USA',
 		occupation: 'Ex-CEO',
 		company: 'Apple Inc.',
-		avatar: '/img/steve-jobs.png'
+		avatar: gravatar.url('jobs@email.com', { d: 'mm' })
 	});
 
 	var wayne = new User({
@@ -28,18 +28,8 @@ var createUsers = function (User) {
 		country: 'USA',
 		occupation: 'CEO',
 		company: 'Wayne Enterprises',
-		avatar: '/img/bruce-wayne.png'
+		avatar: gravatar.url('wayne@email.com', { d: 'mm' })
 	});
 
 	return [gates, jobs, wayne];
-};
-
-module.exports.insertModels = function (User) {	
-	var users = createUsers(User);
-
-	User.find({}).remove(function () {
-		User.create(users, function (error) {
-			console.log('# Users created');
-		})
-	});
 };

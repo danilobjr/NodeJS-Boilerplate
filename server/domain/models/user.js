@@ -12,15 +12,9 @@ var oAuthTypes = ['github', 'twitter', 'facebook', 'google'];
 */
 
 var UserSchema = new Schema({
-	name: {
-		first: String,
-		last: String
-	},
+	firstName: String,
+	lastName: String,
 	email: String,
-	// grupo: {
-	// 	type: String,
-	// 	default: 'Usuário'
-	// },
 	country: String,
 	occupation: String,
 	company: String,
@@ -38,6 +32,15 @@ var UserSchema = new Schema({
 	google: {}
 });
 
+
+/**
+ * Local Helper Methods
+ */
+
+var valueExist = function(value) {
+  return value && value.length;
+};
+
 /**
  * Virtuals
 */
@@ -45,13 +48,16 @@ var UserSchema = new Schema({
 UserSchema
 	.virtual('fullName')
 	.set(function (fullName) {
-		var array = fullName.split(' ');
-		this.name.first = array.splice(0, 1).toString();
-		this.name.last = array.join(' ');
-		this._fullName = this.name.first + ' ' + this.name.last;
+		if (valueExist(fullName)) {
+			var nameArray = fullName.split(' ');			
+			this.firstName = nameArray.splice(0, 1).toString();
+			if (nameArray.length) {
+				this.lastName = nameArray.join(' ');
+			}
+		}
 	})
 	.get(function () {
-		return this.name.first + ' ' + this.name.last;
+		return this.firstName + ((this.lastName) ? ' ' + this.lastName : '');
 	});
 
 UserSchema
@@ -69,15 +75,11 @@ UserSchema
 UserSchema
 	.virtual('info')
 	.get(function () {
-		return {
+		var info = {
 			_id: this._id,
-			name: this.name,
-			fullName: this.name.first + ' ' + this.name.last,
+			firstName: this.firstName,
+			fullName: this.firstName + ((this.lastName != undefined) ? ' ' + this.lastName : ''),
 			email: this.email,
-			//grupo: this.grupo,
-			country: this.country,
-			occupation: this.occupation,
-			company: this.company,
 			signinDate: {
 				day: moment(this.signinDate).format('DD'),
 				monthNumber: moment(this.signinDate).format('MM'),
@@ -85,8 +87,29 @@ UserSchema
 				year: moment(this.signinDate).format('YYYY')
 			},
 			avatar: this.avatar,
-			oAuth: this.oAuth
 		};
+
+		if (this.lastName) {
+			info.lastName = this.lastName;
+		}
+
+		if (this.country) {
+			info.country = this.country;
+		}
+
+		if (this.occupation) {
+			info.occupation = this.occupation;
+		}
+
+		if (this.company) {
+			info.company = this.company;
+		}
+
+		if (this.oAuth) {
+			info.oAuth = this.oAuth;
+		}
+
+		return info;
 	});
 
 /*
@@ -131,10 +154,6 @@ UserSchema
 		return hashPassword.length;
 	}, 'Password cannot be empty');
 
-
-var valueExist = function(value) {
-  return value && value.length;
-};
 
 /**
  * Pre-save hook
@@ -189,4 +208,4 @@ UserSchema.methods = {
 	}
 };
 
-mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

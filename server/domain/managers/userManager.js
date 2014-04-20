@@ -3,12 +3,11 @@
 module.exports = function (User, gravatar) {
 	var createUser = function (data, callback) {
 		var newUser = new User({
-			email: data.email
+			fullName: data.fullName,
+			email: data.email,
+			password: data.password,
+			avatar: gravatar.url(data.email, { d: 'mm' })
 		});
-
-		newUser.avatar = gravatar.url(newUser.email, { d: 'mm' });
-		newUser.fullName = data.fullName;
-		newUser.password = data.password;
 
 		if (data.country) {
 			newUser.country = data.country;
@@ -27,22 +26,20 @@ module.exports = function (User, gravatar) {
 
 	var saveUser = function (user, callback) {
 		user.save(function (saveError, userSaved, numberAffected) {
-			var message = '',
-				done = false;
-
 			if (saveError) { 
 				return callback(saveError);
 			}
 
 			if (numberAffected) {
-				message = 'User saved';
-				done = true;
+				var message = 'User saved';
+				var done = true;
 				callback(null, userSaved, message, done);
 			} else {
-				message = 'User not saved';
+				var message = 'User not saved';
+				var done = false;
 				callback(null, null, message, done);
 			}
-		});	
+		});
 	};
 
 	var changePassword = function (data, callback) {
@@ -63,9 +60,7 @@ module.exports = function (User, gravatar) {
 			}
 
 			if (userFound.authenticate(userData.oldPassword)) {
-
 				userFound.password = userData.newPassword;
-
 				userFound.save(saveCallback);
 			} else {
 				var done = false;

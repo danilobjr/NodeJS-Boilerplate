@@ -107,7 +107,7 @@ module.exports = function (User, gravatar) {
 		});
 	};
 
-	var deleteAccount = function (req, res, next) {		
+	var deleteAccount = function (req, res, next) {
 		userManager.deleteUser(req.user._id, function (error, user, message, done) {
 			if (error) { return next(error); }
 
