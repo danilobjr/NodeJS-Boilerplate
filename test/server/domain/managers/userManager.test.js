@@ -156,10 +156,10 @@ describe('userManager', function () {
 
 		it('should send a "User not found" message if the id not exist', function (done) {
 			var idString = users[0]._id.toString();
-			var nonExistID = 9 + idString.substring(1);
+			var nonExistingId = 9 + idString.substring(1);
 
 			var data = {
-				_id: nonExistID
+				_id: nonExistingId
 			};
 
 			userManager.changePassword(data, function (error, user, message, changeOperationDone) {
@@ -187,9 +187,9 @@ describe('userManager', function () {
 
 		it('sould not delete a user with a non-exist id', function (done) {
 			var idString = users[0]._id.toString();
-			var nonExistID = 9 + idString.substring(1);
+			var nonExistingId = 9 + idString.substring(1);
 
-			userManager.deleteUser(nonExistID, function (error, user, message, deleteOperationDone) {
+			userManager.deleteUser(nonExistingId, function (error, user, message, deleteOperationDone) {
 				message.should.be.exactly('User not found');
 				deleteOperationDone.should.be.false;
 				done();

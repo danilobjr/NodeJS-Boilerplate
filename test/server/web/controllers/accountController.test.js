@@ -210,6 +210,77 @@ describe('accountController', function () {
 		});
 	});
 
-	// describe('#changePassword');
-	// describe('#deleteAccount');
+	describe('#changePassword', function () {
+		it('should redirect to "/change-password" route with a successful message', function (done) {
+			request.user = {
+				_id: users[0]._id
+			};
+
+			request.body = {
+				oldPassword: users[0].password,
+				newPassword: 'aNewPassword123456'
+			};
+
+			response.redirect = function (route) {
+				request.flash('change-password-success').should.be.exactly('true');
+				request.flash('change-password-message').should.be.exactly('Password changed');
+				route.should.be.exactly('/change-password');
+				done();
+			};
+
+			accountController.changePassword(request, response, done);
+		});
+
+		it('should redirect to "/change-password" route with a fail message if have error', function (done) {
+			request.user = {
+				_id: users[0]._id
+			};
+
+			request.body = {
+				oldPassword: 'wrongOldPassword',
+				newPassword: 'aNewPassword'
+			};
+
+			response.redirect = function (route) {
+				request.flash('change-password-success').should.be.exactly('false');
+				request.flash('change-password-message').should.be.exactly('This is not your current password');
+				route.should.be.exactly('/change-password');
+				done();
+			};
+
+			accountController.changePassword(request, response, done);
+		});
+	});
+
+	describe('#deleteAccount', function () {
+		it('should redirect to logout on delete an account', function (done) {
+			request.user = {
+				_id: users[0]._id
+			};
+
+			response.redirect = function (route) {
+				route.should.be.exactly('/logout');
+				done();
+			};
+
+			accountController.deleteAccount(request, response, done);
+		});
+
+		it('should redirect to "/profile" route with a fail message if operation is not done', function (done) {
+			var nonExistingId = '9' + users[0]._id.toString().substring(1);
+
+			request.user = {
+				_id: nonExistingId
+			};
+
+			response.redirect = function (route) {
+				request.flash('profile-success').should.be.exactly('false');
+				request.flash('profile-message').should.be.exactly('User not found');
+				route.should.be.exactly('/profile');
+				done();
+			};
+
+			accountController.deleteAccount(request, response, done);
+		});
+	});
 });

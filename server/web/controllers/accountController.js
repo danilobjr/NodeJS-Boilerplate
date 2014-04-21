@@ -93,14 +93,8 @@ module.exports = function (User, gravatar) {
 		};
 
 		userManager.changePassword(data, function (error, user, message, done) {
-			// TODO: deal with schemaErrors
 			if (error) { return next(error); }
 
-			// if user was not found, redirect to logout, cause session is over
-			if (!user) {
-				return res.redirect('/logout');
-			}
-			
 			req.flash('change-password-success', done.toString());
 			req.flash('change-password-message', message);
 			res.redirect('/change-password');
