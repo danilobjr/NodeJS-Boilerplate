@@ -3,16 +3,71 @@
 module.exports = function (grunt) {
 	// define configuration to all tasks
 	grunt.initConfig({
-
 		// show errors in js files
 		jshint: {
 			options: {
-				jshintrc: true,
-				reporter: require('jshint-stylish')
+				jshintrc: '.jshintrc',
+				reporter: require('jshint-stylish'),
+				force: true
 			},
-			server: ['server/**/*.js']
+			client: {
+				options: {
+					jshintrc: 'public/js/.jshintrc',
+					ignores: ['public/js/AdminLTE.js']
+				},
+				src: ['public/js/**/*.js']
+			},
+			server: ['server.js','server/**/*.js']
 		},
-
+		// express app
+		express: {
+			options: {
+				port: process.env.PORT || 3000
+			},
+			dev: {
+				options: {
+					script: 'server.js'
+				}
+			}
+		},
+		// open express app on browser
+		open: {
+			dev: {
+				path: 'http://localhost:<%= express.options.port %>'
+			}
+		},
+		// watch for change files and run specific tasks when specific files are added, changed or deleted.
+		watch: {
+			clientJs: {
+				options: {
+					livereload: true
+				},
+				files: ['public/**/*.js'],
+				tasks: ['jshint:client']
+			},
+			livereload: {
+				options: {
+					livereload: true
+				},
+				files: [
+					'server/web/views/**/*.{ejs,jade}',
+					'public/js/**/*.js',
+					'public/css/**/*.css',
+					'public/img/**/*.{png,jpeg,jpg,webp}'
+				]
+			},
+			express: {
+				options: {
+					livereload: true,
+					nospawn: true
+				},
+				files: [
+					'server.js',
+					'server/**/*.{js,json}'
+				],
+				tasks: ['jshint:server', 'express:dev']//, 'wait']
+			}
+		},
 		// run mocha tests
 		mochaTest: {
 			options: {
@@ -27,10 +82,23 @@ module.exports = function (grunt) {
 
 	// load grunt plugins
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-express-server');
+	grunt.loadNpmTasks('grunt-open');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-mocha-test');
 
 	// run 'grunt serve' on console to open app in browser
-	grunt.registerTask('serve', function () {
+	grunt.registerTask('server', function () {
+		grunt.task.run([
+			'jshint',
+			'express:dev',
+			'open:dev',
+			'watch'
+		]);
+	});
+
+	// run 'grunt test' on console to run the unit tests
+	grunt.registerTask('test', function () {
 		grunt.task.run([
 			'jshint:server',
 			'mochaTest'
@@ -38,5 +106,5 @@ module.exports = function (grunt) {
 	});
 
 	// define tasks
-	grunt.registerTask('default', ['serve']);
+	grunt.registerTask('default', ['server']);
 };

@@ -20,7 +20,11 @@
     "grunt": "^0.4.4",
     "grunt-contrib-jshint": "^0.10.0",
     "jshint-stylish": "^0.1.5",
-    "grunt-mocha-test": "^0.10.2"
+    "grunt-mocha-test": "^0.10.2",
+    "grunt-express-server": "^0.4.13",
+    "grunt-open": "^0.2.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "connect-livereload": "^0.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

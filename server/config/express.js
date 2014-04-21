@@ -9,6 +9,7 @@ var express = require('express'),
 module.exports = function (app, config) {
 
 	app.configure(function () {
+		app.use(require('connect-livereload')());
 		// public files (assets: js, css)
 		app.use(express.static(config.rootPath + '/public'));
 		// ejs as view engine
