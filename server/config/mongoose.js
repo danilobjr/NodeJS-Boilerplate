@@ -20,9 +20,9 @@ module.exports.setup = function (config) {
 	var db = mongoose.connection;
 
 	db.on('error', function (error) {
-		throw new Error(error);
 		console.log('# Error on database: ');
 		console.error(error);
+		throw new Error(error);
 	});
 	
 	db.once('open', function () {

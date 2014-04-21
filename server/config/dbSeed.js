@@ -40,6 +40,6 @@ module.exports.insertModels = function (User) {
 	User.find({}).remove(function () {
 		User.create(users, function (error) {
 			console.log('# Users created');
-		})
+		});
 	});
 };

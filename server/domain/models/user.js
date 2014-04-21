@@ -78,7 +78,7 @@ UserSchema
 		var info = {
 			_id: this._id,
 			firstName: this.firstName,
-			fullName: this.firstName + ((this.lastName != undefined) ? ' ' + this.lastName : ''),
+			fullName: this.firstName + ((this.lastName !== undefined) ? ' ' + this.lastName : ''),
 			email: this.email,
 			signinDate: {
 				day: moment(this.signinDate).format('DD'),
@@ -121,7 +121,7 @@ UserSchema
 	.path('email')
 	.validate(function (email) {
 		// do not validate, if authentication is done by oauth strategies
-		if(oAuthTypes.indexOf(this.oAuth) !== -1) return true;
+		if (oAuthTypes.indexOf(this.oAuth) !== -1) { return true; }
 		return email.length;
 	}, 'Email cannot be empty');
 
@@ -150,7 +150,7 @@ UserSchema
 	.path('hashPassword')
 	.validate(function (hashPassword) {
 		// do not validate, if authentication is done by oauth strategies
-		if(oAuthTypes.indexOf(this.oAuth) !== -1) return true;
+		if (oAuthTypes.indexOf(this.oAuth) !== -1) { return true; }
 		return hashPassword.length;
 	}, 'Password cannot be empty');
 
@@ -160,7 +160,7 @@ UserSchema
  */
 UserSchema
 	.pre('save', function (next) {
-		if (!this.isNew) return next();
+		if (!this.isNew) { return next(); }
 
 		if (!valueExist(this.hashPassword) && oAuthTypes.indexOf(this.oAuth) === -1) {
 			next(new Error('Invalid password'));
@@ -202,7 +202,7 @@ UserSchema.methods = {
 	 * @api public
 	 */
 	encryptPassword: function(password) {
-		if (!password || !this.salt) return '';
+		if (!password || !this.salt) { return ''; }
 		var salt = new Buffer(this.salt, 'base64');
 		return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
 	}

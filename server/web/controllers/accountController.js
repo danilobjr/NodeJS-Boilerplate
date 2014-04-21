@@ -43,7 +43,7 @@ module.exports = function (User, gravatar) {
 
 		var saveUserCallback = function (saveError, userSaved, message, done) {
 			if (saveError) {
-				if (saveError.name == 'ValidationError') {
+				if (saveError.name === 'ValidationError') {
 					var errors = saveError.errors;
 					req.flash('signup-success', 'false');
 					req.flash('signup-message', errors[Object.keys(errors)[0]].message);

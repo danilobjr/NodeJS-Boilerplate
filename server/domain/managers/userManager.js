@@ -30,13 +30,15 @@ module.exports = function (User, gravatar) {
 				return callback(saveError);
 			}
 
+			var done = false,
+				message = '';
+
 			if (numberAffected) {
-				var message = 'User saved';
-				var done = true;
+				done = true;
+				message = 'User saved';
 				callback(null, userSaved, message, done);
 			} else {
-				var message = 'User not saved';
-				var done = false;
+				message = 'User not saved';
 				callback(null, null, message, done);
 			}
 		});
@@ -52,10 +54,12 @@ module.exports = function (User, gravatar) {
 		var findCallback = function (errorFind, userFound) {
 			if (errorFind) { return callback(errorFind); }
 
+			var done = false,
+				message = '';
+
 			// if user was not found, redirect to logout, cause session is over
 			if (!userFound) {
-				var done = false;
-				var message = 'User not found';
+				message = 'User not found';
 				return callback(null, userFound, message, done);
 			}
 
@@ -63,8 +67,7 @@ module.exports = function (User, gravatar) {
 				userFound.password = userData.newPassword;
 				userFound.save(saveCallback);
 			} else {
-				var done = false;
-				var message = 'This is not your current password';
+				message = 'This is not your current password';
 				callback(null, userFound, message, done);
 			}
 		};
