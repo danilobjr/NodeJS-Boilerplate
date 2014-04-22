@@ -1,3 +1,5 @@
+'use strict';
+
 $(function () {
 	$('form').validate({
 		rules: {

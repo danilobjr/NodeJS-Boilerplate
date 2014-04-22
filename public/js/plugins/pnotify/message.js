@@ -1,5 +1,7 @@
 // see config.pnotify.js
 
+'use strict';
+
 $(function () {
 	$.notification.messageContainer = $('#message');
 	
@@ -16,8 +18,8 @@ $(function () {
 	if ($.notification.messageContainer.length) {
 		var data = $.notification.messageContainer.data();
 
-		if (data.success != undefined) {
-			data.type = (data.success == true) ? 'success' : 'warning';
+		if (data.success !== undefined) {
+			data.type = (data.success === true) ? 'success' : 'warning';
 		} else {
 			data.type = 'info';
 		}

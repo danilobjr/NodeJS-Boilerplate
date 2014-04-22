@@ -13,7 +13,10 @@ module.exports = function (grunt) {
 			client: {
 				options: {
 					jshintrc: 'public/js/.jshintrc',
-					ignores: ['public/js/AdminLTE.js']
+					ignores: [
+						'public/js/AdminLTE.js', 
+						'public/js/plugins/pnotify/confirm.js'
+					]
 				},
 				src: ['public/js/**/*.js']
 			},
@@ -22,7 +25,8 @@ module.exports = function (grunt) {
 		// express app
 		express: {
 			options: {
-				port: process.env.PORT || 3000
+				port: process.env.PORT || 3000,
+				delay: 500
 			},
 			dev: {
 				options: {
@@ -38,11 +42,14 @@ module.exports = function (grunt) {
 		},
 		// watch for change files and run specific tasks when specific files are added, changed or deleted.
 		watch: {
+			gruntfile: {
+				files: ['Gruntfile.js']
+			},
 			clientJs: {
 				options: {
 					livereload: true
 				},
-				files: ['public/**/*.js'],
+				files: ['public/**/*.js', 'public/js/.jshintrc'],
 				tasks: ['jshint:client']
 			},
 			livereload: {

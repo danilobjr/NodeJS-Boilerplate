@@ -1,3 +1,5 @@
+'use strict';
+
 $(function () {
 	$('[name=formChangePassword]').validate({
         rules: {

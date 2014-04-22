@@ -1,12 +1,14 @@
 // see config.pnotify.js
 
+'use strict';
+
 $(function () {
     var showConfirmDialog = function (title, text, callback, buttons) {
-        if (typeof buttons !== "object") {
+        if (typeof buttons !== 'object') {
             buttons = {
-                "Yes": true,
-                "No": false
-            }
+                'Yes': true,
+                'No': false
+            };
         }
 
         var notice;
@@ -14,7 +16,7 @@ $(function () {
         text = $('<div>' + text + '<br style="clear: both;" /><div class="button-container" style="margin-top: 10px; text-align: right;"></div></div>');
 
         $.each(buttons, function(b, val) {
-            text.find("div.button-container").append($('<button style="margin-left: 5px;" class="btn btn-default btn-small">' + b + '</button>').click(function() {
+            text.find('div.button-container').append($('<button style="margin-left: 5px;" class="btn btn-default btn-small">' + b + '</button>').click(function() {
                 notice.remove();
                 callback.call(notice, val);
             }));

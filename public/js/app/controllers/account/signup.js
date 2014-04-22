@@ -1,8 +1,10 @@
+'use strict';
+
 $(function () {
     // countries
 
     var start = Date.now();
-    var countriesPromise = $.getJSON("/js/data/countries.json");
+    var countriesPromise = $.getJSON('/js/data/countries.json');
     countriesPromise.done(function (data) {
         var select = $('[name=country]');
         data.forEach(function (country) {
