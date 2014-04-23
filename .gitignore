@@ -29,3 +29,6 @@ build
 
 # Thumbnails
 *.db
+
+# temp folder
+.tmp
