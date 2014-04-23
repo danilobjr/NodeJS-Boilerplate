@@ -9,7 +9,7 @@ var should = require('should'),
 	fakeFlashMessage = require(testConfig.rootPath + '/test/config/fakes/flashMessage'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	accountController = require(testConfig.rootPath + '/server/web/controllers/accountController')(User, gravatar),
+	accountController = require(testConfig.rootPath + '/server/web/controllers/accountController'),
 	userManager = require(testConfig.rootPath + '/server/domain/managers/userManager')(User, gravatar);
 
 // passport setup
@@ -28,7 +28,7 @@ describe('accountController', function () {
 		request = { flash: fakeFlashMessage };
 		response = {};
 		User.find({}).remove(function () {
-			User.create(users, function (error) {				
+			User.create(users, function (error) {
 				done();
 			});
 		});
@@ -119,7 +119,7 @@ describe('accountController', function () {
 				password: '123456'
 			};
 
-			request.logIn = function (logInCalled) {				
+			request.logIn = function (logInCalled) {
 				return function (user, callback) {
 					logInCalled = true;
 					setTimeout(function () {

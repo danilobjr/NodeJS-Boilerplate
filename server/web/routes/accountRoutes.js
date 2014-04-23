@@ -1,7 +1,6 @@
 'use strict';
 
-var	di = require('./../../config/dependencyInjector'),
-	accountController = require('./../controllers/accountController').inject(di),
+var	accountController = require('./../controllers/accountController'),
 	isLoggedIn = require('./../../config/middleware').isLoggedIn;
 
 module.exports = function (app) {

@@ -34,11 +34,12 @@ var createUsers = function (User) {
 	return [gates, jobs, wayne];
 };
 
-module.exports.insertModels = function (User) {	
+module.exports.insertModels = function (User) {
 	var users = createUsers(User);
 
 	User.find({}).remove(function () {
 		User.create(users, function (error) {
+			if (error) { console.log(error); }
 			console.log('# Users created');
 		});
 	});

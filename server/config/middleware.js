@@ -2,8 +2,8 @@
 
 module.exports = {
 	isLoggedIn: function (req, res, next) {
-		if (req.isAuthenticated()) { 
-			next(); 
+		if (req.isAuthenticated()) {
+			next();
 		} else {
 			res.redirect('/login');
 		}
@@ -19,7 +19,7 @@ module.exports = {
 
 		next();
 	},
-	notFoundHandler: function (req, res, next) {
+	notFoundHandler: function (req, res) {
 		if (req.isAuthenticated()) {
 			res.render('error', {
 				error: {
@@ -32,7 +32,7 @@ module.exports = {
 			res.redirect('/login');
 		}
 	},
-	internalServerErrorHandler: function (error, req, res, next) {
+	internalServerErrorHandler: function (error, req, res) {
 		res.render('error', {
 			error: {
 				statusCode: 500,
