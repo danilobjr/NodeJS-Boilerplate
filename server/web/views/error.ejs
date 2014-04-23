@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>Node.js Boilerplate</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        
+
         <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <link href="/bower_components/ionicons/css/ionicons.min.css" rel="stylesheet" />
@@ -32,19 +32,19 @@
             <aside class="right-side strech">
                 <!-- Main content -->
                 <section class="content">
-                 
+
                     <div class="error-page">
                         <h2 class="headline text-info"> <%= error.statusCode %></h2>
                         <div class="error-content">
                             <h3><i class="fa fa-warning text-yellow"></i> Oops! <%= error.message %></h3>
                             <p class="hidden-lg text-center">
-                                <%= error.description %> 
+                                <%= error.description %>
                                 <% if (error.statusCode == 500) { %>
                                     <i class="fa fa-info-circle text-muted" data-toggle="tooltip" data-placement="top" title="StackTrace on web console (F12)"></i>
                                 <% } %>
                             </p>
                             <p class="visible-lg">
-                                <%= error.description %> 
+                                <%= error.description %>
                                 <% if (error.statusCode == 500) { %>
                                     <i class="fa fa-info-circle text-muted" data-toggle="tooltip" data-placement="top" title="StackTrace on web console (F12)"></i>
                                 <% } %>
@@ -58,10 +58,10 @@
                                 </div>/.input-group
                             </form> -->
                             <div class="hidden-lg text-center">
-                                <a href="#" class="btn btn-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Go Back</a>
+                                <a onclick="window.history.back()" class="btn btn-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Go Back</a>
                             </div>
                             <div class="visible-lg">
-                                <a href="#" class="btn btn-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Go Back</a>
+                                <a onclick="window.history.back()" class="btn btn-default"><i class="fa fa-chevron-circle-left"></i>&nbsp;&nbsp;Go Back</a>
                             </div>
                             <span class="hidden stackTrace"><%= (error.stackTrace) ? error.stackTrace : '' %></span>
                         </div><!-- /.error-content -->
