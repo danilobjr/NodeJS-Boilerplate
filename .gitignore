@@ -24,11 +24,9 @@ node_modules
 # Bower dependency directory
 public/bower_components
 
-# Build files
+# /build and /.tmp folders
 build
+.tmp
 
 # Thumbnails
 *.db
-
-# temp folder
-.tmp
