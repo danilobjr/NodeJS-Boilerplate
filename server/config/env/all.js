@@ -6,6 +6,7 @@ var rootPath = __dirname + '../../../..';
 module.exports = {
 	rootPath: rootPath,
 	port: process.env.PORT || 3000,
+	cookieSecretPhrase: 'nodejsboilerplateveryveryverysecretphrase',
 	mongo: {
 		options: {
 			db: {

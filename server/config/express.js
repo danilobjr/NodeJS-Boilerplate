@@ -4,12 +4,17 @@ var express = require('express'),
 	engine = require('ejs-locals'),
 	passport = require('passport'),
 	flash = require('connect-flash'),
-	middleware = require('./middleware');
+	middleware = require('./middleware'),
+	MongoStore = require('connect-mongo')(express);
 
 module.exports = function (app, config) {
 
-	app.configure(function () {
+	app.configure('development', function () {
+		// add the livereload script to the response
 		app.use(require('connect-livereload')());
+	});
+
+	app.configure(function () {
 		// public files (assets: js, css)
 		app.use(express.static(config.rootPath + '/public'));
 		// ejs as view engine
@@ -25,8 +30,16 @@ module.exports = function (app, config) {
 
 		// parses the Cookie header field and populates req.cookies with an object keyed by the cookie names
 		app.use(express.cookieParser());
-		// working with sessions
-		app.use(express.session({ secret: 'nodejsboilerplateveryveryverysecretphrase' }));
+
+		// persist sessions with MongoStore
+		app.use(express.session({
+			secret: config.cookieSecretPhrase,
+			store: new MongoStore({
+				url: config.mongo.uri
+			}, function () {
+				console.log('db connection open');
+			})
+		}));
 
 		// send flash message to response
 		app.use(flash());
