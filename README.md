@@ -9,35 +9,49 @@ Table of Contents
 =================
 
 - [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
 
 <a name='features'></a>Features
 =======================
 
-- <a href="http://expressjs.com/" target="_blank"><b>Express</b></a>: a web application framework for node
-- <a href="http://www.mongodb.org/" target="_blank"><b>MongoDB</b></a> with <a href="http://mongoosejs.com/" target="_blank"><b>Mongoose</b></a>: an elegant mongodb object modeling for node.js
-- <a href="http://visionmedia.github.io/mocha/" target="_blank"><b>Mocha</b></a>: a feature-rich javascript test framework running on node.js and the browser (BDD and TDD style testing)
-- <a href="http://bower.io/" target="_blank"><b>Bower</b></a>: a package manager for the web
-- <a href="http://gruntjs.com/" target="_blank"><b>Grunt</b></a>: a javascript task runner
-- <a href="http://www.almsaeedstudio.com/preview" target="_blank"><b>AdminLTE</b></a>: a free Premium Admin Control Panel Theme that is based on <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.x</a> with tons of elements
-- <a href="http://getbootstrap.com/" target="_blank"><b>Bootstrap 3</b></a> + <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank"><b>Font Awesome</b></a> + <a href="http://ionicons.com/" target="_blank"><b>IonIcons</b></a>
+- <b>Web Framework</b>
+	- <a href="http://expressjs.com/" target="_blank">Express.js</a>: a web application framework for node
+- <b>Database</b>
+	- <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> with <a href="http://mongoosejs.com/" target="_blank">Mongoose</a>: an elegant mongodb object modeling for node.js
+- <b>Testing</b>
+	- <a href="http://visionmedia.github.io/mocha/" target="_blank">Mocha</a>: a feature-rich javascript test framework running on node.js and the browser (BDD and TDD style testing)
+	- <a href="https://github.com/visionmedia/should.js" target="_blank">Should.js</a>: BDD style assertions for node.js -- test framework agnostic
+- <b>Client-Side Dependencies Management</b>
+	- <a href="http://bower.io/" target="_blank">Bower</a>: a package manager for the web
+- <b>Task Runner</b>
+	- <a href="http://gruntjs.com/" target="_blank">Grunt</a>: a javascript task runner
+- <b>Admin Template</b>
+	- <a href="http://www.almsaeedstudio.com/preview" target="_blank">AdminLTE</a>: a free Premium Admin Control Panel Responsive Theme that is based on <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3.x</a> with tons of elements
+- <b>UI</b>
+	- <a href="http://getbootstrap.com/" target="_blank">Bootstrap 3</a>: The most popular front-end framework for developing responsive, mobile first projects on the web
+	- <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a>: The iconic font designed for Bootstrap that gives you scalable vector icons that can instantly be customized — size, color, drop shadow, and anything that can be done with the power of CSS
+	- <a href="http://ionicons.com/" target="_blank">IonIcons</a>
 - <b>MVC</b> Project Structure
-- <b>Local Authentication</b> with <a href="http://passportjs.org/" target="_blank"><b>Passport.js</b></a>
-- <b>Awesome Notifications</b> with <a href="http://sciactive.com/pnotify/" target="_blank"><b>PNotify</b></a>
+- <b>Local Authentication</b> with <a href="http://passportjs.org/" target="_blank">Passport.js</a>
+- <b>Awesome Notifications</b> with <a href="http://sciactive.com/pnotify/" target="_blank">PNotify</a>
 - <b>Account Management</b>
-    - Gravatar
+    - <a href="https://gravatar.com" target="_blank">Gravatar</a>
     - Profile Details
     - Change Password
     - Delete Account
 
-Prerequisites
+<a name='prerequisites'></a>Prerequisites
 =============
 
-TODO
+1. <a href="http://nodejs.org/" target="_blank">Node.js</a>
+2. <a href="http://www.mongodb.org/" target="_blank">MongoDB</a>
+	- [How to install](http://docs.mongodb.org/manual/installation/)
 
-Getting Started
+<a name="#getting-started"></a>Getting Started
 ===============
 
-TODO
+TODO: draft -> Install globally grunt-cli, mocha, bower, clone this repository, enter the directory, npm install .. show Grunt tasks
 
 Project Structure
 =================
