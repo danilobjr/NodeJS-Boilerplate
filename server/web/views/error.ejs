@@ -5,11 +5,15 @@
         <title>Node.js Boilerplate</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
+		<!-- build:css /css/vendor.css -->
         <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <link href="/bower_components/ionicons/css/ionicons.min.css" rel="stylesheet" />
+		<!-- endbuild -->
 
+		<!-- build:css /css/main.css -->
         <link href="/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+		<!-- endbuild -->
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,13 +75,14 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 
-
-        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>-->
+		<!-- build:js /js/vendor.js -->
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- endbuild -->
 
+		<!-- build:js /js/scripts.js -->
         <script src="/js/AdminLTE.js"></script>
-        <script src="/js/AdminLTE_Custom.js"></script>
+        <!-- endbuild -->
 
         <script>
             $(function () {

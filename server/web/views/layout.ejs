@@ -4,14 +4,18 @@
         <meta charset="UTF-8">
         <title>Node.js Boilerplate</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        
+
+		<!-- build:css /css/vendor.css -->
         <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" />
         <link href="/bower_components/ionicons/css/ionicons.min.css" rel="stylesheet" />
         <link href="/bower_components/pnotify/pnotify.core.css" rel="stylesheet" />
+        <!-- endbuild -->
 
+		<!-- build:css /css/main.css -->
         <link href="/css/AdminLTE.css" rel="stylesheet" />
         <link href="/css/custom.css" rel="stylesheet" />
+        <!-- endbuild -->
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,7 +74,7 @@
         </header>
         <div class="wrapper row-offcanvas row-offcanvas-left">
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">                
+            <aside class="left-side sidebar-offcanvas">
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
@@ -108,7 +112,7 @@
                         </li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-folder"></i>  
+                                <i class="fa fa-folder"></i>
                                 <span>Multilevel Menu</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
@@ -142,23 +146,27 @@
             </aside>
 
             <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">                
+            <aside class="right-side">
                 <%- body %>
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 
-
-        <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>-->
+		<!-- build:js /js/vendor.js -->
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/bower_components/pnotify/pnotify.core.js"></script>
         <script src="/bower_components/jquery-validate/dist/jquery.validate.min.js"></script>
+        <!-- endbuild -->
 
+		<!-- build:js /js/scripts.js -->
         <script src="/js/AdminLTE.js"></script>
+        <script src="/js/app/controllers/account/login.js"></script>
         <script src="/js/app/controllers/account/change-password.js"></script>
+        <script src="/js/app/controllers/account/signup.js"></script>
         <script src='/js/plugins/pnotify/config.pnotify.js'></script>
         <script src='/js/plugins/pnotify/message.js'></script>
         <script src='/js/plugins/pnotify/confirm.js'></script>
+        <!-- endbuild -->
 
         <%-partial('partials/message') %>
     </body>

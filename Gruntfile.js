@@ -6,27 +6,30 @@ module.exports = function (grunt) {
 		// show errors in js files
 		jshint: {
 			options: {
-				jshintrc: '.jshintrc',
-				reporter: require('jshint-stylish'),
-				force: true
+				reporter: require('jshint-stylish')
 			},
 			client: {
 				options: {
 					jshintrc: 'public/js/.jshintrc',
 					ignores: [
-						'public/js/AdminLTE.js', 
+						'public/js/AdminLTE.js',
 						'public/js/plugins/pnotify/confirm.js'
 					]
 				},
 				src: ['public/js/**/*.js']
 			},
-			server: ['server.js','server/**/*.js']
+			server: {
+				options: {
+					jshintrc: '.jshintrc',
+				},
+				src: ['server.js','server/**/*.js']
+			}
 		},
 		// express app
 		express: {
 			options: {
-				port: process.env.PORT || 3000,
-				delay: 500
+				port: process.env.PORT || 3000
+				// delay: 500
 			},
 			dev: {
 				options: {
@@ -75,6 +78,57 @@ module.exports = function (grunt) {
 				tasks: ['jshint:server', 'express:dev']//, 'wait']
 			}
 		},
+
+		// clean files from folder
+		clean: {
+			build: ['.tmp', 'build']
+		},
+		// copy files and folders to 'build' directory
+		copy: {
+			build: {
+				files: [{
+					src: ['server.js', 'package.json', 'server/**'],
+					dest: 'build/'
+				},
+				{
+					src: ['public/img/**'],
+					dest: 'build/'
+				},
+				{
+					src: ['public/js/data/countries.json'],
+					dest: 'build/'
+				}]
+			}
+			// server: {
+			// 	src: ['server.js', 'package.json', 'server/**'],
+			// 	dest: 'build/'
+			// },
+			// client: {
+			// 	src: ['public/img/**'],
+			// 	dest: 'build/'
+			// }
+		},
+		// Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views)
+		useminPrepare: {
+			options: {
+				root: 'public',
+				dest: 'build/public'
+			},
+			html: [
+				'server/web/views/layout.{ejs,jade}',
+				'server/web/views/account/layout.{ejs,jade}'
+			]
+		},
+		usemin: {
+			options: {
+				assetsDest: ['build/public']
+			},
+			html: [
+				'build/server/web/views/{layout,error}.{ejs,jade}',
+				'build/server/web/views/account/layout.{ejs,jade}'
+			]
+		},
+
 		// run mocha tests
 		mochaTest: {
 			options: {
@@ -92,25 +146,40 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-open');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-usemin');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-mocha-test');
 
 	// run 'grunt serve' on console to open app in browser
-	grunt.registerTask('server', function () {
-		grunt.task.run([
-			'jshint',
-			'express:dev',
-			'open:dev',
-			'watch'
-		]);
-	});
+	grunt.registerTask('server', [
+		'jshint',
+		'express:dev',
+		'open:dev',
+		'watch'
+	]);
 
 	// run 'grunt test' on console to run the unit tests
-	grunt.registerTask('test', function () {
-		grunt.task.run([
-			'jshint:server',
-			'mochaTest'
-		]);
-	});
+	grunt.registerTask('test', [
+		'jshint',
+		'mochaTest'
+	]);
+
+	// run 'grunt build' on console to generate your build in '/build' directory
+	grunt.registerTask('build', [
+		'jshint',
+		'mochaTest',
+		'clean:build',
+		'useminPrepare',
+		'copy:build',
+		'concat',
+		'cssmin',
+		'uglify',
+		'usemin'
+	]);
 
 	// define tasks
 	grunt.registerTask('default', ['server']);

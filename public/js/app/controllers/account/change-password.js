@@ -1,7 +1,7 @@
 'use strict';
 
 $(function () {
-	$('[name=formChangePassword]').validate({
+	$('form[name=formChangePassword]').validate({
         rules: {
             oldPassword: {
                 required: true

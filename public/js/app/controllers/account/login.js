@@ -1,7 +1,7 @@
 'use strict';
 
 $(function () {
-	$('form').validate({
+	$('form[name=loginForm]').validate({
 		rules: {
 		    email: {
 		        required: true
