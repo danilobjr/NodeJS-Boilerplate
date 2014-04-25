@@ -75,7 +75,7 @@ npm install
 
 <p>4. Done! Use the following grunt tasks</p>
 
-Launch the express server in development mode. Tasks included are JSHint, Livereload and Watch.
+Launch the express server in development mode. This will run jshint, livereload and watch.
 
 ```sh
 grunt server
