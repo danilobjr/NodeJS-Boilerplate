@@ -31,7 +31,7 @@
 
 /* Signup */
 
-#signup-form select {
+form[name=signupForm] select {
 	border: none;
 	color: #999;
 	padding-left: 8px;
