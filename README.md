@@ -6,14 +6,14 @@ NodeJS Boilerplate is a starting point architecture for Node.js web apps.
 *Live Demo*: [TODO](#)
 
 Table of Contents
-=================
+-----------------
 
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
 
 <a name='features'></a>Features
-=======================
+-------------------------------
 
 - <b>Web Framework</b>
 	- <a href="http://expressjs.com/" target="_blank">Express.js</a>: a web application framework for node
@@ -42,49 +42,89 @@ Table of Contents
     - Delete Account
 
 <a name='prerequisites'></a>Prerequisites
-=============
+-----------------------------------------
 
 1. <a href="http://nodejs.org/" target="_blank">Node.js</a>
 2. <a href="http://www.mongodb.org/" target="_blank">MongoDB</a>
-	- [How to install](http://docs.mongodb.org/manual/installation/)
+	- [How to install](http://docs.mongodb.org/manual/installation/) on Linux, Mac and Windows.
 
 <a name="#getting-started"></a>Getting Started
-===============
+----------------------------------------------
 
-TODO: draft -> Install globally grunt-cli, mocha, bower, clone this repository, enter the directory, npm install .. show Grunt tasks
+<p>1. Install globally grunt-cli, mocha and bower.</p>
+
+```sh
+npm install -g grunt-cli mocha bower
+```
+
+<p>2. Clone this repository.</p>
+
+```sh
+# fetch only the latest commits
+git clone --depth=0 git@github.com:danilojrr/NodeJS-Boilerplate.git my-app-name
+
+# enter the directory
+cd my-app-name
+```
+
+<p>3. Install NPM dependencies.</p>
+
+```sh
+npm install
+```
+
+<p>4. Done! Use the following grunt tasks</p>
+
+Launch the express server in development mode. Tasks included are JSHint, Livereload and Watch.
+
+```sh
+grunt server
+```
+
+Run jshint and unit tests (Mocha).
+
+```sh
+grunt test
+```
+
+Generate a **build** folder that can easily be deployed. This will run jshint, unit tests, jshint, concatenate and minify scripts/css, compress images and finally copy all files to a tidy build folder.
+
+```sh
+grunt build
+```
 
 Project Structure
-=================
+-----------------
 
 TODO
 
 Npm Packages
-============
+------------
 
 TODO
 
 Useful Tools
-============
+------------
 
 TODO
 
 Recommended Design
-==================
+------------------
 
 TODO
 
 Recommended Node.js Libraries
-=============================
+-----------------------------
 
 TODO
 
 Recommended Client-Side Libraries
-=================================
+---------------------------------
 
 TODO
 
 License
-=======
+-------
 
 The MIT License (MIT)
 
