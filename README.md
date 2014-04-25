@@ -11,6 +11,7 @@ Table of Contents
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
 
 <a name='features'></a>Features
 -------------------------------
@@ -93,10 +94,34 @@ Generate a **build** folder that can easily be deployed. This will run jshint, u
 grunt build
 ```
 
-Project Structure
------------------
+<a name="project-structure"></a>Project Structure
+-------------------------------------------------
 
-TODO
+nodejs-boilerplate<br>
+| -- public<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- bower_components<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- css<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- fonts<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- img<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- js<br>
+| -- server<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- config<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- domain<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- web<br>
+| -- test<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- config<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- server<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| -- mocha.opts<br>
+| -- .bowerrc<br>
+| -- .editorconfig<br>
+| -- .gitignore<br>
+| -- .jshint<br>
+| -- bower.json<br>
+| -- Gruntfile.js<br>
+| -- LICENSE<br>
+| -- package.json<br>
+| -- README.md<br>
+| -- server.js
 
 Npm Packages
 ------------
