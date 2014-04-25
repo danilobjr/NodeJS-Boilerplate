@@ -91,6 +91,10 @@ module.exports = function (grunt) {
 					dest: 'build/'
 				},
 				{
+					src: ['public/fonts/**'],
+					dest: 'build/'
+				},
+				{
 					src: ['public/img/**'],
 					dest: 'build/'
 				},
