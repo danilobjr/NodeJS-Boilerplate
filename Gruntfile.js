@@ -94,10 +94,10 @@ module.exports = function (grunt) {
 					src: ['public/fonts/**'],
 					dest: 'build/'
 				},
-				{
-					src: ['public/img/**'],
-					dest: 'build/'
-				},
+				// {
+				// 	src: ['public/img/**'],
+				// 	dest: 'build/'
+				// },
 				{
 					src: ['public/js/data/countries.json'],
 					dest: 'build/'
@@ -132,6 +132,16 @@ module.exports = function (grunt) {
 				'build/server/web/views/account/layout.{ejs,jade}'
 			]
 		},
+		imagemin: {
+			build: {
+				files: [{
+					expand: true,
+					cwd: 'public/img',
+					src: ['**/*.{png,jpeg,jpg,gif}'],
+					dest: 'build/public/img/'
+				}]
+			}
+		},
 
 		// run mocha tests
 		mochaTest: {
@@ -156,6 +166,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-mocha-test');
 
 	// run 'grunt serve' on console to open app in browser
@@ -182,6 +193,7 @@ module.exports = function (grunt) {
 		'concat',
 		'cssmin',
 		'uglify',
+		'imagemin',
 		'usemin'
 	]);
 
