@@ -4,14 +4,18 @@ $(function () {
 	$('form[name=loginForm]').validate({
 		rules: {
 		    email: {
-		        required: true
+		        required: true,
+		        email: true
 		    },
 		    password: {
 		        required: true
 		    }
 		},
 		messages: {
-			email: 'Type your email',
+			email: {
+				required: 'Type your email',
+				email: 'Enter a valid email address'
+			},
 			password: 'Type your password'
 		},
 		highlight: function(element) {

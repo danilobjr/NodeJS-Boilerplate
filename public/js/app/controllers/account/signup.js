@@ -23,7 +23,8 @@ $(function () {
 				required: true
 			},
 			email: {
-				required: true
+				required: true,
+				email: true
 			},
 			password: {
 				required: true,
