@@ -1,5 +1,5 @@
 <!-- Partial: Message -->
 
 <% if (typeof message != 'undefined' && message.description.length > 0) { %>
-	<div id="message" class="hidden" <%= (typeof message.success != 'undefined') ? 'data-success='+message.success : '' %> data-description="<%= message.description %>"></div>
+	<div id="message" class="hidden" <%= (typeof message.success != 'undefined') ? 'data-success=' + message.success : '' %> data-description="<%= message.description %>"></div>
 <% } %>
