@@ -21,6 +21,9 @@ module.exports = function (grunt) {
 			server: {
 				options: {
 					jshintrc: '.jshintrc',
+					ignores: [
+						'server/config/email.js'
+					]
 				},
 				src: ['server.js','server/**/*.js']
 			}
