@@ -5,9 +5,9 @@
     <form name='signupForm' action="/signup" method="post">
         <div class="body bg-gray">
             <% if (message.description.length > 0) { %>
-                <div class="alert <%= (message.success == true) ? 'alert-success' : 'alert-warning' %> alert-dismissable">
+                <div class="alert alert-warning alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <b><%= (message.success == true) ? 'You in!' : 'Oops!' %></b>
+                    <b>Oops!</b>
                     <%= message.description %>
                 </div>
             <% } %>
