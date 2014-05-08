@@ -26,7 +26,7 @@ module.exports = function (User, gravatar) {
 
 	var saveUser = function (user, callback) {
 		user.save(function (saveError, userSaved, numberAffected) {
-			if (saveError) { 
+			if (saveError) {
 				return callback(saveError);
 			}
 
@@ -93,16 +93,60 @@ module.exports = function (User, gravatar) {
 		User.findById(userData._id, findCallback);
 	};
 
+	var resetPassword = function (data, callback) {
+		// data
+
+		var userData = data;
+
+		// callbacks
+
+		var findCallback = function (errorFind, userFound) {
+			if (errorFind) { return callback(errorFind); }
+
+			var done = false,
+				message = '';
+
+			// if user was not found, redirect to logout, cause session is over
+			if (!userFound) {
+				message = 'User not found';
+				return callback(null, null, message, done);
+			}
+
+			userFound.password = userData.newPassword;
+			userFound.save(saveCallback);
+		};
+
+		var saveCallback = function (errorSave, userSaved, numberAffected) {
+			if (errorSave) { return callback(errorSave); }
+
+			var done = false,
+				message = '';
+
+			if (numberAffected) {
+				done = true;
+				message = 'Password changed';
+			} else {
+				message = 'Password could not change. Try later';
+			}
+
+			callback(null, userSaved, message, done);
+		};
+
+		// execution
+
+		User.findById(userData._id, findCallback);
+	};
+
 	var deleteUser = function (userId, callback) {
 		// callbacks
 
 		var findCallback = function (errorFind, user) {
 			if (errorFind) { return callback(errorFind); }
 
-			if (!user) { 
+			if (!user) {
 				var message = 'User not found';
 				var done = false;
-				return callback(null, user, message, done); 
+				return callback(null, user, message, done);
 			}
 
 			user.remove(removeCallback);
@@ -125,6 +169,7 @@ module.exports = function (User, gravatar) {
 		createUser: createUser,
 		saveUser: saveUser,
 		changePassword: changePassword,
+		resetPassword: resetPassword,
 		deleteUser: deleteUser
 	};
 };

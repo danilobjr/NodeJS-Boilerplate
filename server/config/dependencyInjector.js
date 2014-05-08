@@ -11,6 +11,10 @@ var createDependencies = function (di) {
 				obj: require('gravatar')
 			},
 			{
+				name: 'email',
+				obj: require('./email')
+			},
+			{
 				name : 'User',
 				factory : function() {
 					return mongoose.model('User');
@@ -20,12 +24,11 @@ var createDependencies = function (di) {
 	]);
 };
 
-var setup = function () {	
-	omni.addInjectToFunctionPrototype(); 
+var setup = function () {
+	omni.addInjectToFunctionPrototype();
 	var di = omni();
 	createDependencies(di);
 	return di;
 };
-
 
 module.exports = setup();

@@ -50,10 +50,13 @@ describe('accountController', function () {
 		it('should send a flash message to view', function () {
 			response.render = function (viewName, viewModel) {
 				viewModel.should.have.property('message');
-				viewModel.message.should.be.exactly('This test should pass');
+				viewModel.message.should.have.properties('success', 'description');
+				viewModel.message.success.should.be.exactly('true');
+				viewModel.message.description.should.be.exactly('This test should pass');
 			};
 
-			request.flash('login', 'This test should pass');
+			request.flash('login-success', 'true');
+			request.flash('login-description', 'This test should pass');
 
 			accountController.loginPage(request, response);
 		});
@@ -97,13 +100,10 @@ describe('accountController', function () {
 		it('should send a flash message to view', function () {
 			response.render = function (viewName, viewModel) {
 				viewModel.should.have.property('message');
-				viewModel.message.should.have.properties('success', 'description');
-				viewModel.message.success.should.exactly('true');
-				viewModel.message.description.should.exactly('Some message');
+				viewModel.message.should.exactly('Some message');
 			};
 
-			request.flash('signup-success', 'true');
-			request.flash('signup-message', 'Some message');
+			request.flash('signup', 'Some message');
 
 			accountController.signupPage(request, response);
 		});
@@ -174,8 +174,7 @@ describe('accountController', function () {
 			response.redirect = function (route) {
 				// assert
 				route.should.be.exactly('/signup');
-				request.flash('signup-success').should.be.exactly('false');
-				request.flash('signup-message').should.be.exactly('Email is already in use');
+				request.flash('signup').should.be.exactly('Email is already in use');
 
 				done();
 			};

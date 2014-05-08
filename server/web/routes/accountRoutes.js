@@ -11,5 +11,9 @@ module.exports = function (app) {
 	app.post('/signup', accountController.signup);
 	app.get('/change-password', isLoggedIn, accountController.changePasswordPage);
 	app.post('/change-password', isLoggedIn, accountController.changePassword);
+	app.get('/forgot-password', accountController.forgotPasswordPage);
+	app.post('/forgot-password', accountController.sendInstructionsToResetPassword);
+	app.get('/reset-password', accountController.resetPasswordPage);
+	app.post('/reset-password', accountController.resetPassword);
 	app.get('/delete-account', isLoggedIn, accountController.deleteAccount);
 };

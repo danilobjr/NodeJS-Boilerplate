@@ -2,10 +2,16 @@
 
 var di = require('./../../config/dependencyInjector'),
 	userManager = require('./../../domain/managers/userManager').inject(di),
+	accountManager = require('./../../domain/managers/accountManager').inject(di),
 	passport = require('passport');
 
 module.exports.loginPage = function (req, res) {
-	res.render('account/login', { message: req.flash('login') });
+	res.render('account/login', {
+		message: {
+			success: req.flash('login-success'),
+			description: req.flash('login-message')
+		}
+	});
 };
 
 module.exports.login = passport.authenticate('local', {
@@ -20,16 +26,10 @@ module.exports.logout = function (req, res) {
 };
 
 module.exports.signupPage = function (req, res) {
-	res.render('account/signup', {
-		message: {
-			success: req.flash('signup-success'),
-			description: req.flash('signup-message')
-		}
-	});
+	res.render('account/signup', { message: req.flash('signup') });
 };
 
 module.exports.signup = function (req, res, next) {
-
 	// data
 
 	var newUserData = req.body;
@@ -44,8 +44,7 @@ module.exports.signup = function (req, res, next) {
 		if (saveError) {
 			if (saveError.name === 'ValidationError') {
 				var errors = saveError.errors;
-				req.flash('signup-success', 'false');
-				req.flash('signup-message', errors[Object.keys(errors)[0]].message);
+				req.flash('signup', errors[Object.keys(errors)[0]].message);
 				return res.redirect('/signup');
 			}
 
@@ -53,8 +52,7 @@ module.exports.signup = function (req, res, next) {
 		}
 
 		if (!done) {
-			req.flash('signup-success', done.toString());
-			req.flash('signup-message', message);
+			req.flash('signup', message);
 			return res.redirect('/signup');
 		}
 
@@ -73,6 +71,65 @@ module.exports.signup = function (req, res, next) {
 	// execution
 
 	userManager.createUser(newUserData, createUserCallback);
+};
+
+module.exports.forgotPasswordPage = function (req, res) {
+	res.render('account/forgot-password', {
+		message: {
+			success: req.flash('forgot-password-success'),
+			description: req.flash('forgot-password-message')
+		}
+	});
+};
+
+module.exports.sendInstructionsToResetPassword = function (req, res, next) {
+	var data = {
+		email: req.body.email,
+		urlOrigin: req.headers.origin
+	};
+
+	accountManager.sendInstructionsToResetPassword(data, function (err, user, message, done) {
+		if (err) {
+			return next(err);
+		}
+
+		req.flash('forgot-password-success', done.toString());
+		req.flash('forgot-password-message', message);
+
+		res.redirect('/forgot-password');
+	});
+};
+
+module.exports.resetPasswordPage = function (req, res) {
+	var token = req.query.token;
+	res.render('account/reset-password', {
+		token: token,
+		message: {
+			success: req.flash('reset-password-success'),
+			description: req.flash('reset-password-message')
+		}
+	});
+};
+
+module.exports.resetPassword = function (req, res, next) {
+	var data = {
+		_id: req.body.token,
+		newPassword: req.body.newPassword
+	};
+
+	userManager.resetPassword(data, function (err, user, message, done) {
+		if (err) { return next(err); }
+
+		if (done) {
+			req.flash('login-success', 'true');
+			req.flash('login-message', 'Login with your new password');
+			res.redirect('/login');
+		} else {
+			req.flash('reset-password-success', 'false');
+			req.flash('reset-password-message', message);
+			res.redirect('/reset-password');
+		}
+	});
 };
 
 module.exports.changePasswordPage = function (req, res) {

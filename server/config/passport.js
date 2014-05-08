@@ -30,11 +30,11 @@ module.exports.setup = function (User) {
 		      	if (err) { return done(err); }
 
 		      	if (!user) {
-		        	return done(null, false, req.flash('login', 'Email and/or password incorrect.'));
+		        	return done(null, false, req.flash('login-message', 'Email and/or password incorrect.'));
 		      	}
 
 		      	if (!user.authenticate(password)) {
-			        return done(null, false, req.flash('login', 'Email and/or password incorrect.'));
+			        return done(null, false, req.flash('login-message', 'Email and/or password incorrect.'));
 		      	}
 
 			    return done(null, user);
