@@ -36,18 +36,21 @@ Table of Contents
 - <b>MVC</b> Project Structure
 - <b>Local Authentication</b> with <a href="http://passportjs.org/" target="_blank">Passport.js</a>
 - <b>Awesome Notifications</b> with <a href="http://sciactive.com/pnotify/" target="_blank">PNotify</a>
+- <b>Contact Page</b> with <a href="http://mandrill.com/" target='_blank'>Mandrill</a>
 - <b>Account Management</b>
     - <a href="https://gravatar.com" target="_blank">Gravatar</a>
     - Profile Details
     - Change Password
+    - Reset Password
     - Delete Account
 
 <a name='prerequisites'></a>Prerequisites
 -----------------------------------------
 
-1. <a href="http://nodejs.org/" target="_blank">Node.js</a>
-2. <a href="http://www.mongodb.org/" target="_blank">MongoDB</a>
-	- [How to install](http://docs.mongodb.org/manual/installation/) on Linux, Mac and Windows.
+1. Install <a href="http://git-scm.com/" target="_blank">Git</a>
+2. Install <a href="http://nodejs.org/" target="_blank">Node.js</a>
+3. Install <a href="http://www.mongodb.org/" target="_blank">MongoDB</a>
+	- Here a [how-to](http://docs.mongodb.org/manual/installation/) tutorial for Linux, Mac and Windows.
 
 <a name="#getting-started"></a>Getting Started
 ----------------------------------------------
