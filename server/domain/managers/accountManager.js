@@ -13,7 +13,7 @@ module.exports = function (User, email) {
 			if (user) {
 				var htmlMessageBody = '<h3>How to Reset Your Password</h3>' +
 									'<p>To reset your password, click on the link below and follow the instructions:</p>' +
-									data.urlOrigin + '/reset-password?token=' + user._id + '<br><br>' +
+									'<a href="' + data.urlOrigin + '/reset-password?token=' + user._id + '">Reset my password</a><br><br>' +
 									'<p>Node.js Boilerplate Team</p>';
 
 				var emailMessage = {
