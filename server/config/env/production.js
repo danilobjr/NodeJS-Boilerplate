@@ -3,6 +3,6 @@
 module.exports = {
 	env: 'production',
 	mongo: {
-		uri: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/nodejs-boilerplate-dev'
+		uri: process.env.MONGOLAB_URI || 'mongodb://localhost/nodejs-boilerplate-prod'
 	}
 };
