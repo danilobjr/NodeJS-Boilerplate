@@ -9,10 +9,6 @@ var express = require('express'),
 
 module.exports = function (app, config) {
 
-	app.configure('production', function () {
-		process.env.MONGOLAB_URI = 'mongodb://admin:admin@ds031088.mongolab.com:31088/nodejs-boilerplate';
-	});
-
 	app.configure('development', function () {
 		// add the livereload script to the response
 		app.use(require('connect-livereload')());

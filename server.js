@@ -3,8 +3,12 @@
 var http = require('http'),
 	express = require('express');
 
-// set 'development' as default environment 
+// setting environment
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+if (process.env.NODE_ENV === 'production') {
+	process.env.MONGOLAB_URI = 'mongodb://admin:admin@ds031088.mongolab.com:31088/nodejs-boilerplate';
+}
 
 // set config options
 var config = require('./server/config/config');
