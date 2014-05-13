@@ -151,7 +151,7 @@ module.exports = function (grunt) {
 			options: {
 				require: 'should',
 				recursive: true,
-				//reporter: 'spec',
+				reporter: 'spec',
 				bail: true,
 			},
 			src: ['test/**/*.js']

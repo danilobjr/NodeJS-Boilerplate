@@ -56,7 +56,7 @@ describe('accountController', function () {
 			};
 
 			request.flash('login-success', 'true');
-			request.flash('login-description', 'This test should pass');
+			request.flash('login-message', 'This test should pass');
 
 			accountController.loginPage(request, response);
 		});
