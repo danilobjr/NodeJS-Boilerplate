@@ -21,7 +21,7 @@ Table of Contents
 - <b>Database</b>
 	- <a href="http://www.mongodb.org/" target="_blank">MongoDB</a> with <a href="http://mongoosejs.com/" target="_blank">Mongoose</a>: an elegant mongodb object modeling for node.js
 - <b>Testing</b>
-	- <a href="http://visionmedia.github.io/mocha/" target="_blank">Mocha</a>: a feature-rich javascript test framework running on node.js and the browser (BDD and TDD style testing)
+	- <a href="http://mochajs.org/" target="_blank">Mocha</a>: a feature-rich javascript test framework running on node.js and the browser (BDD and TDD style testing)
 	- <a href="https://github.com/visionmedia/should.js" target="_blank">Should.js</a>: BDD style assertions for node.js -- test framework agnostic
 - <b>Client-Side Dependencies Management</b>
 	- <a href="http://bower.io/" target="_blank">Bower</a>: a package manager for the web
